@@ -1,0 +1,42 @@
+@import '~@angular/material/theming';
+$primary-palette: mat-palette($mat-indigo);
+$primary: mat-color($primary-palette);
+
+.sidenav-content{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.toolbar {
+    position: relative;
+    z-index: 1;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+.content {
+    flex-grow: 1;
+    flex-shrink: 1;
+    overflow: auto;
+    padding: 24px;
+}
+
+.sidenav {
+    width: 65%;
+    min-width: 250px;
+    max-width: 350px;
+}
+
+.active{
+    font-weight: bold;
+    color: $primary !important;
+    background-color: rgba($primary, 0.12) !important;
+}
+
+::ng-deep router-outlet + * {
+    display: block;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+}
