@@ -20,7 +20,7 @@ export class TodosService {
      * 
      * @param id The id of todo
      */
-    public get(id: string = null): Observable<TodoInterface> {
+    public get(id: string = null): Observable<TodoInterface[]> {
       if (id === null) {
         return this.api.get('/todos');
       } else {

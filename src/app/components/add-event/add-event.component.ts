@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TodosService } from 'src/app/core/services/todos.service';
 
 @Component({
   selector: 'app-add-event',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddEventComponent implements OnInit {
 
-  constructor() { }
+  constructor(private todoService: TodosService) { }
 
   ngOnInit() {
+
   }
 
 }

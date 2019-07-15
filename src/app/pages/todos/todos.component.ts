@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { TodoInterface } from 'src/app/core/models/todo-interface';
-import { ApiService } from 'src/app/core/services/api.service';
 import { MatBottomSheet } from '@angular/material';
 import { AddEventComponent } from 'src/app/components/add-event/add-event.component';
+import { TodosService } from 'src/app/core/services/todos.service';
 
 @Component({
   selector: 'app-todos',
@@ -12,12 +12,12 @@ import { AddEventComponent } from 'src/app/components/add-event/add-event.compon
 export class TodosComponent implements OnInit {
   public todos: TodoInterface[];
 
-  constructor(private api: ApiService,
+  constructor(private todoService: TodosService,
               private bottomSheet: MatBottomSheet) {
-    this.api.get('/todos').subscribe((todos) => {
+    this.todoService.get().subscribe((todos) => {
       this.todos = todos;
     },
-    (error) => {
+    (error: any) => {
       console.log(`An error has ocurred: ${error}`);
     });
   }
