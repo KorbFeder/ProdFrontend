@@ -30,9 +30,7 @@ export class ApiService {
    * @param body the js object that gets send to the backend in the request body
    */
   public post(path: string, body: Object = {}): Observable<any> {
-    const httpHeaders = new HttpHeaders();
-    httpHeaders.append('Content-Type', 'application/json');
-    return this.http.post(`${environment.api_url}${path}`, JSON.stringify(body), {headers: httpHeaders});
+    return this.http.post(`${environment.api_url}${path}`, body);
   }
 
   /**
@@ -44,7 +42,7 @@ export class ApiService {
    * @param httpParams the request params
    */
   public put(path: string, body: Object = {}, httpParams: HttpParams): Observable<any> {
-    return this.http.put(`${environment.api_url}${path}`, JSON.stringify(body), { params: httpParams });
+    return this.http.put(`${environment.api_url}${path}`, body, { params: httpParams });
   }
 
   /**
@@ -54,6 +52,9 @@ export class ApiService {
    * @param httpParams the request params
    */
   public delete(path: string, httpParams: HttpParams): Observable<any> {
-    return this.http.delete(`${environment.api_url}${path}`, {params: httpParams});
+    return this.http.delete(`${environment.api_url}${path}`, {
+      params: httpParams,
+      observe: 'response'
+    });
   }
 }
