@@ -5,7 +5,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatListModule } from '@angular/material';
+import { MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatListModule, MatCardModule } from '@angular/material';
+import { MatCheckboxModule } from '@angular/material/checkbox'
 import { TodosComponent } from './pages/todos/todos.component';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { FitComponent } from './pages/fit/fit.component';
@@ -22,11 +23,14 @@ import { FitComponent } from './pages/fit/fit.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
+
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
     MatSidenavModule,
-    MatListModule
+    MatListModule,
+    MatCardModule,
+    MatCheckboxModule
   ],
   providers: [],
   bootstrap: [AppComponent]

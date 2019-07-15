@@ -1,3 +1,14 @@
-<p>
-  todos works!
-</p>
+<mat-card class="card" *ngFor="let todo of todos">
+  <mat-card-header class="split-container">
+    <mat-card-title *ngIf="todo.todoMsg">{{todo.todoMsg}}</mat-card-title>
+    <mat-checkbox></mat-checkbox>
+    <mat-card-subtitle>{{todo.endDate | date: 'short'}}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    {{todo.isDone}}
+  </mat-card-content>
+</mat-card>
+
+<button mat-fab class="fab" (click)="addTodo()">
+  <mat-icon>add</mat-icon>
+</button>

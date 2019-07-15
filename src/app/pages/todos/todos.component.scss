@@ -1,0 +1,19 @@
+.card {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.card + .card {
+    margin-top: 18px;
+}
+
+.split-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.fab {
+    position: fixed;
+    right: 16px;
+    bottom: 16px;
+}

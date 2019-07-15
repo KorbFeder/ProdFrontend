@@ -8,7 +8,7 @@ import { ApiService } from 'src/app/core/services/api.service';
   styleUrls: ['./todos.component.scss']
 })
 export class TodosComponent implements OnInit {
-  private todos: TodoInterface[];
+  public todos: TodoInterface[];
 
   constructor(private api: ApiService) {
     this.api.get('/todos').subscribe((todos) => {
@@ -17,6 +17,10 @@ export class TodosComponent implements OnInit {
     (error) => {
       console.log(`An error has ocurred: ${error}`);
     });
+  }
+
+  public addTodo() {
+
   }
 
   ngOnInit() {

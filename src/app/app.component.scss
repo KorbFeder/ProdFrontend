@@ -37,6 +37,4 @@ $primary: mat-color($primary-palette);
 ::ng-deep router-outlet + * {
     display: block;
     width: 100%;
-    max-width: 500px;
-    margin: 0 auto;
 }
