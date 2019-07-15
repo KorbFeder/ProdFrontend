@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { TodoInterface } from 'src/app/models/todo-interface';
-import { ApiService } from 'src/app/services/api.service';
+import { TodoInterface } from 'src/app/core/models/todo-interface';
+import { ApiService } from 'src/app/core/services/api.service';
 
 @Component({
   selector: 'app-todos',
