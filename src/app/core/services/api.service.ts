@@ -41,8 +41,8 @@ export class ApiService {
    * @param body the request object that gets sent to the database
    * @param httpParams the request params
    */
-  public put(path: string, body: Object = {}, httpParams: HttpParams): Observable<any> {
-    return this.http.put(`${environment.api_url}${path}`, body, { params: httpParams });
+  public put(path: string, body: Object = {}): Observable<any> {
+    return this.http.put(`${environment.api_url}${path}`, body);
   }
 
   /**

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { TodoInterface } from 'src/app/core/models/todo-interface';
 import { ApiService } from 'src/app/core/services/api.service';
+import { MatBottomSheet } from '@angular/material';
+import { AddEventComponent } from 'src/app/components/add-event/add-event.component';
 
 @Component({
   selector: 'app-todos',
@@ -10,7 +12,8 @@ import { ApiService } from 'src/app/core/services/api.service';
 export class TodosComponent implements OnInit {
   public todos: TodoInterface[];
 
-  constructor(private api: ApiService) {
+  constructor(private api: ApiService,
+              private bottomSheet: MatBottomSheet) {
     this.api.get('/todos').subscribe((todos) => {
       this.todos = todos;
     },
@@ -20,7 +23,7 @@ export class TodosComponent implements OnInit {
   }
 
   public addTodo() {
-
+    this.bottomSheet.open(AddEventComponent);
   }
 
   ngOnInit() {
