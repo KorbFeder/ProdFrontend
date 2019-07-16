@@ -1,7 +1,7 @@
 export interface TodoInterface {
-    id: number;
+    id?: number;
     isDone: number;
     todoMsg: string;
     importance: number;
-    endDate: Date;
+    endDate?: Date;
 }

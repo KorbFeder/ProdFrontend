@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TodoInterface } from 'src/app/core/models/todo-interface';
 import { MatBottomSheet } from '@angular/material';
-import { AddEventComponent } from 'src/app/components/add-event/add-event.component';
+import { AddTodoComponent } from 'src/app/components/add-todo/add-todo.component';
 import { TodosService } from 'src/app/core/services/todos.service';
 
 @Component({
@@ -23,7 +23,7 @@ export class TodosComponent implements OnInit {
   }
 
   public addTodo() {
-    this.bottomSheet.open(AddEventComponent);
+    this.bottomSheet.open(AddTodoComponent);
   }
 
   ngOnInit() {

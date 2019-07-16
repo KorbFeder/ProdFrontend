@@ -2,7 +2,7 @@
   <mat-card-header class="split-container">
     <mat-card-title *ngIf="todo.todoMsg">{{todo.todoMsg}}</mat-card-title>
     <mat-checkbox></mat-checkbox>
-    <mat-card-subtitle>{{todo.endDate | date: 'short'}}</mat-card-subtitle>
+    <mat-card-subtitle>{{todo.endDate | date: 'shortDate'}}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
     {{todo.isDone}}

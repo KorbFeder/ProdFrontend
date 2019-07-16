@@ -6,13 +6,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatListModule, MatCardModule,
-   MatBottomSheetModule, MatSelectModule, MatFormFieldModule, MatInputModule } from '@angular/material';
+   MatBottomSheetModule, MatSelectModule, MatFormFieldModule, MatInputModule, MatNativeDateModule } from '@angular/material';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { FormsModule } from '@angular/forms';
-import { MatCheckboxModule } from '@angular/material/checkbox'
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { TodosComponent } from './pages/todos/todos.component';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { FitComponent } from './pages/fit/fit.component';
-import { AddEventComponent } from './components/add-event/add-event.component';
+import { AddTodoComponent } from './components/add-todo/add-todo.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,7 @@ import { AddEventComponent } from './components/add-event/add-event.component';
     TodosComponent,
     SettingsComponent,
     FitComponent,
-    AddEventComponent
+    AddTodoComponent
   ],
   imports: [
     BrowserModule,
@@ -39,10 +40,12 @@ import { AddEventComponent } from './components/add-event/add-event.component';
     MatSelectModule,
     MatFormFieldModule,
     MatInputModule,
-    FormsModule
+    FormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
-  entryComponents: [AddEventComponent],
-  providers: [],
+  entryComponents: [AddTodoComponent],
+  providers: [MatDatepickerModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
