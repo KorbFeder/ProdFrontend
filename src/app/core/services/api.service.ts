@@ -15,10 +15,9 @@ export class ApiService {
    * it will return an Observable containing the values
    *
    * @param path api path, that gets appended to /api
-   * @param httpParams the http params that get appended
    */
-  public get(path: string, httpParams: HttpParams = null): Observable<any> {
-    return this.http.get(`${environment.api_url}${path}`, { params: httpParams});
+  public get(path: string): Observable<any> {
+    return this.http.get(`${environment.api_url}${path}`);
   }
 
   /**
@@ -39,7 +38,6 @@ export class ApiService {
    *
    * @param path api path, that gets appended after /api
    * @param body the request object that gets sent to the database
-   * @param httpParams the request params
    */
   public put(path: string, body: Object = {}): Observable<any> {
     return this.http.put(`${environment.api_url}${path}`, body);
@@ -49,11 +47,9 @@ export class ApiService {
    * This method will delete an object from the database, the object can be specified with the httpParams
    *
    * @param path api path, that gets appended after /api
-   * @param httpParams the request params
    */
-  public delete(path: string, httpParams: HttpParams): Observable<any> {
+  public delete(path: string): Observable<any> {
     return this.http.delete(`${environment.api_url}${path}`, {
-      params: httpParams,
       observe: 'response'
     });
   }

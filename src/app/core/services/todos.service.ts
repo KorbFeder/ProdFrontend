@@ -25,8 +25,7 @@ export class TodosService {
         return this.api.get('/todos');
       } else {
         const httpParams: HttpParams = new HttpParams();
-        httpParams.append('id', id);
-        return this.api.get('/todos', httpParams);
+        return this.api.get(`/todos/${id}`);
       }
     }
 
@@ -56,9 +55,10 @@ export class TodosService {
      * @param id The id of the todo which has to get deleted
      */
     public delete(id: string): Observable<number> {
-      const httpParams: HttpParams = new HttpParams();
-      httpParams.append('id', id);
-      return this.api.delete('/todos', httpParams);
+      if (!id) {
+        throw new Error(`The delete method needs an id: ${id}`);
+      }
+      return this.api.delete(`/todos/${id}`);
     }
 
 

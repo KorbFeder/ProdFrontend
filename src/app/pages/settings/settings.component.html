@@ -1,3 +1,20 @@
-<p>
-  settings works!
-</p>
+
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Todos
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <p>Change Todo options here</p>
+    <form class="form" #form="ngForm" (ngSubmit)="saveTodoSettings(form.value); form.reset()">
+      <mat-form-field>
+        <input matInput name="settings1" placeholder="settings1" #settings1="ngModel" ngModel required>
+        <mat-error *ngIf="">Please enter the settings</mat-error>
+      </mat-form-field>
+      <mat-action-row>
+        <button type="submit" mat-raised-button color="primary" [disabled]="!form.valid">Save</button>
+      </mat-action-row>
+    </form>
+  </mat-expansion-panel>
+</mat-accordion>

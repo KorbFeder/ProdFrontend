@@ -8,12 +8,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatListModule, MatCardModule,
    MatBottomSheetModule, MatSelectModule, MatFormFieldModule, MatInputModule, MatNativeDateModule } from '@angular/material';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatSnackBarModule, MatDialogModule } from '@angular/material';
 import { FormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { TodosComponent } from './pages/todos/todos.component';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { FitComponent } from './pages/fit/fit.component';
 import { AddTodoComponent } from './components/add-todo/add-todo.component';
+import { DeleteTodoComponent } from './components/delete-todo/delete-todo.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +24,8 @@ import { AddTodoComponent } from './components/add-todo/add-todo.component';
     TodosComponent,
     SettingsComponent,
     FitComponent,
-    AddTodoComponent
+    AddTodoComponent,
+    DeleteTodoComponent
   ],
   imports: [
     BrowserModule,
@@ -42,9 +46,12 @@ import { AddTodoComponent } from './components/add-todo/add-todo.component';
     MatInputModule,
     FormsModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatExpansionModule,
+    MatSnackBarModule,
+    MatDialogModule
   ],
-  entryComponents: [AddTodoComponent],
+  entryComponents: [AddTodoComponent, DeleteTodoComponent],
   providers: [MatDatepickerModule],
   bootstrap: [AppComponent]
 })

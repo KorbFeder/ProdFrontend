@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { TodoInterface } from 'src/app/core/models/todo-interface';
-import { MatBottomSheet } from '@angular/material';
+import { MatBottomSheet, MatDialog } from '@angular/material';
 import { AddTodoComponent } from 'src/app/components/add-todo/add-todo.component';
 import { TodosService } from 'src/app/core/services/todos.service';
+import { DeleteTodoComponent } from 'src/app/components/delete-todo/delete-todo.component';
 
 @Component({
   selector: 'app-todos',
@@ -13,7 +14,8 @@ export class TodosComponent implements OnInit {
   public todos: TodoInterface[];
 
   constructor(private todoService: TodosService,
-              private bottomSheet: MatBottomSheet) {
+              private bottomSheet: MatBottomSheet,
+              private matDialog: MatDialog) {
     this.todoService.get().subscribe((todos) => {
       this.todos = todos;
     },
@@ -22,11 +24,25 @@ export class TodosComponent implements OnInit {
     });
   }
 
+  ngOnInit() {
+  }
+
   public addTodo() {
     this.bottomSheet.open(AddTodoComponent);
   }
 
-  ngOnInit() {
+  public deleteTodo(todo) {
+    const dialogRef = this.matDialog.open(DeleteTodoComponent, {
+      width: '80%',
+      maxWidth: '450px',
+      data: todo.todoMsg,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === true) {
+        this.todoService.delete(todo.id).subscribe((result) => {
+          console.log(result);
+        });
+      }
+    });
   }
-
 }
