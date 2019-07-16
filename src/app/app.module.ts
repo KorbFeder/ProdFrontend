@@ -17,6 +17,8 @@ import { SettingsComponent } from './pages/settings/settings.component';
 import { FitComponent } from './pages/fit/fit.component';
 import { AddTodoComponent } from './components/add-todo/add-todo.component';
 import { DeleteTodoComponent } from './components/delete-todo/delete-todo.component';
+import { StoreModule } from '@ngrx/store';
+import { reducer } from './store/todo.reducer';
 
 @NgModule({
   declarations: [
@@ -49,7 +51,9 @@ import { DeleteTodoComponent } from './components/delete-todo/delete-todo.compon
     MatNativeDateModule,
     MatExpansionModule,
     MatSnackBarModule,
-    MatDialogModule
+    MatDialogModule,
+
+    StoreModule.forRoot({todos: reducer})
   ],
   entryComponents: [AddTodoComponent, DeleteTodoComponent],
   providers: [MatDatepickerModule],

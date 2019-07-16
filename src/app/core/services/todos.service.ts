@@ -3,6 +3,9 @@ import { Observable } from 'rxjs';
 import { TodoInterface } from '../models/todo-interface';
 import { ApiService } from './api.service';
 import { HttpParams } from '@angular/common/http';
+import { Store } from '@ngrx/store';
+import { tap } from 'rxjs/operators';
+import { LOAD, LOADSINGLE, ADD, EDIT, REMOVE } from 'src/app/store/todo.actions';
 
 /**
  * This is a wrapper service for api service, so i can be switched out by any other database/service
@@ -11,7 +14,8 @@ import { HttpParams } from '@angular/common/http';
   providedIn: 'root'
 })
 export class TodosService {
-    constructor(private api: ApiService) { }
+    constructor(private api: ApiService,
+                private store: Store<{todos: TodoInterface[]}>) { }
 
     /**
      * This method gets the todo/s, if the id is sent as an parameter, than the method will only return one 
@@ -22,10 +26,14 @@ export class TodosService {
      */
     public get(id: string = null): Observable<TodoInterface[]> {
       if (id === null) {
-        return this.api.get('/todos');
+        return this.api.get('/todos').pipe(
+          tap((result: TodoInterface[]) => this.store.dispatch(LOAD({todos: result})))
+        );
       } else {
         const httpParams: HttpParams = new HttpParams();
-        return this.api.get(`/todos/${id}`);
+        return this.api.get(`/todos/${id}`).pipe(
+          tap((result: TodoInterface[]) => this.store.dispatch(LOADSINGLE({todo: result[0]})))
+        );
       }
     }
 
@@ -35,8 +43,10 @@ export class TodosService {
      * 
      * @param todo The todo object, which should get saved
      */
-    public save(todo: TodoInterface): Observable<TodoInterface> {
-      return this.api.post('/todos', todo);
+    public save(todo: TodoInterface): Observable<TodoInterface[]> {
+      return this.api.post('/todos', todo).pipe(
+        tap((result: TodoInterface[]) => this.store.dispatch(ADD({todo: result[0]})))
+      );
     }
 
     /**
@@ -44,8 +54,10 @@ export class TodosService {
      * 
      * @param todo The todo object, which should get updated
      */
-    public update(todo: TodoInterface): Observable<TodoInterface> {
-      return this.api.put('/todos', todo);
+    public update(todo: TodoInterface): Observable<TodoInterface[]> {
+      return this.api.put('/todos', todo).pipe(
+        tap((result: TodoInterface[]) => this.store.dispatch(EDIT({todo: result[0]})))
+      );
     }
 
     /**
@@ -58,7 +70,9 @@ export class TodosService {
       if (!id) {
         throw new Error(`The delete method needs an id: ${id}`);
       }
-      return this.api.delete(`/todos/${id}`);
+      return this.api.delete(`/todos/${id}`).pipe(
+        tap((result) => this.store.dispatch(REMOVE({id: result.body})))
+      );
     }
 
 

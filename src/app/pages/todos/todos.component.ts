@@ -4,6 +4,9 @@ import { MatBottomSheet, MatDialog } from '@angular/material';
 import { AddTodoComponent } from 'src/app/components/add-todo/add-todo.component';
 import { TodosService } from 'src/app/core/services/todos.service';
 import { DeleteTodoComponent } from 'src/app/components/delete-todo/delete-todo.component';
+import { Observable } from 'rxjs';
+import { Store, select } from '@ngrx/store';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-todos',
@@ -11,17 +14,18 @@ import { DeleteTodoComponent } from 'src/app/components/delete-todo/delete-todo.
   styleUrls: ['./todos.component.scss']
 })
 export class TodosComponent implements OnInit {
-  public todos: TodoInterface[];
+  public todos$: Observable<TodoInterface[]>;
 
   constructor(private todoService: TodosService,
               private bottomSheet: MatBottomSheet,
-              private matDialog: MatDialog) {
-    this.todoService.get().subscribe((todos) => {
-      this.todos = todos;
-    },
-    (error: any) => {
-      console.log(`An error has ocurred: ${error}`);
-    });
+              private matDialog: MatDialog,
+              private store: Store<{todos: TodoInterface[]}>) {
+    this.todos$ = store.pipe(
+      select('todos'),
+      map(result => result.todos)
+    );
+    this.todos$.subscribe((result) => {console.log(result)});
+    this.todoService.get().subscribe();
   }
 
   ngOnInit() {
@@ -39,9 +43,7 @@ export class TodosComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result === true) {
-        this.todoService.delete(todo.id).subscribe((result) => {
-          console.log(result);
-        });
+        this.todoService.delete(todo.id).subscribe();
       }
     });
   }
