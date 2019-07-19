@@ -1,5 +1,9 @@
 <main>
-  <app-todo-card *ngFor="let todo of (todos$ | async)" 
+  <app-todo-card *ngFor="let todo of (todos$ | async)"
+    [ngClass]="{'card-column-zero': todo.importance === 0, 
+                'card-column-one': todo.importance === 1,
+                'card-column-two': todo.importance === 2,
+                'card-column-three': todo.importance === 3}"  
     [todo] = todo
     (deletedTodo)=deleteTodo(todo)>
   </app-todo-card>

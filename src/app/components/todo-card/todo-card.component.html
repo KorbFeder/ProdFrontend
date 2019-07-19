@@ -16,6 +16,7 @@
 
   <!--The image between the header and the details-->
   <img mat-card-image class="image" *ngIf="todo.imgUrl" [src]="todo.imgUrl" alt="todo image">
+  <p>{{todo.importance}}</p>
 
   <!--The details at the bottom-->
   <mat-card-content class="details" *ngIf="todo.details">
