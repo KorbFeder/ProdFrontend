@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { TodosService } from 'src/app/core/services/todos.service';
 import { TodoInterface } from 'src/app/core/models/todo-interface';
-import { MatBottomSheetRef } from '@angular/material';
+import { MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA } from '@angular/material';
 
 /**
  * The bottom sheet component, that gets opened when the user tries to add a todo
@@ -13,10 +13,12 @@ import { MatBottomSheetRef } from '@angular/material';
 })
 export class AddTodoComponent implements OnInit {
   /** The 3 importance states of a todo */
-  public importanceStats: string[] = ["Someday", "Next view days", "Very urgent"];
+  public importanceStats: string[];
 
   constructor(private todoService: TodosService,
+              @Inject(MAT_BOTTOM_SHEET_DATA) public data: any,
               private bottomSheet: MatBottomSheetRef<AddTodoComponent>) {
+    this.importanceStats = data;
   }
 
   ngOnInit() {
@@ -28,11 +30,12 @@ export class AddTodoComponent implements OnInit {
    * 
    * @param value the data entered through the from
    */
-  public addTodo(value: {importance: number, todoMsg: string, endDate: Date}) {
-    const tmp = {isDone: 0};
+  public addTodo(value: {importance: number, todoMsg: string, endDate: Date, details: string}) {
+    const tmp = {isDone: false};
     const todo: TodoInterface = Object.assign(tmp, value);
+    todo.details = todo.details === '' ? null : todo.details;
     todo.endDate = <any>todo.endDate === '' ? null : todo.endDate;
-    this.todoService.save(todo).subscribe();
+    this.todoService.save(todo).subscribe(result => console.log(result));
     this.bottomSheet.dismiss();
   }
 }

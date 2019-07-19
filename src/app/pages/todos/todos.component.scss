@@ -1,27 +1,16 @@
-.card {
-    max-width: 500px;
+
+app-todo-card {
+    display: block;
     margin: 0 auto;
+    max-width: 35rem;
 }
 
-.card + .card {
-    margin-top: 18px;
-}
-
-.split-container {
-    display: flex;
-    justify-content: space-between;
+app-todo-card + app-todo-card {
+    margin-top: 1.125rem;
 }
 
 .fab {
     position: fixed;
-    right: 16px;
-    bottom: 16px;
-}
-
-mat-card-title {
-    margin-top: 10px;
-}
-
-.doneCheckbox {
-    margin-right: 12px;
+    right: 1rem;
+    bottom: 1rem;
 }

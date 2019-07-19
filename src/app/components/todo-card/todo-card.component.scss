@@ -2,7 +2,6 @@
     display: grid;
     grid-template-columns: 10% 5% auto;
     grid-template-rows: auto auto auto;
-    max-width: 500px;
 }
 
 .header {
@@ -35,10 +34,14 @@
 }
 
 ::ng-deep .mat-card-header-text {
-    margin: 0px 0px !important
+    margin: 0rem 0rem !important
 }
 
 .trashcan {
-    margin-top: -10px; 
-    margin-right: -10px;
+    margin-top: -0.625rem; 
+    margin-right: -0.625rem;
+}
+
+.title {
+    word-break: break-all;
 }

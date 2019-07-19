@@ -13,9 +13,6 @@ export class TodoCardComponent implements OnInit {
   @Output()
   deletedTodo = new EventEmitter<TodoInterface>();
 
-  @Output()
-  doneTodo = new EventEmitter<TodoInterface>();
-
   constructor() { }
 
   ngOnInit() {

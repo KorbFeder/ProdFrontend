@@ -15,6 +15,7 @@ import { map } from 'rxjs/operators';
 })
 export class TodosComponent implements OnInit {
   public todos$: Observable<TodoInterface[]>;
+  public importanceStates: string[] = ['Very urgent', 'In the next view days', 'Someday', 'Done'];
 
   constructor(private todoService: TodosService,
               private bottomSheet: MatBottomSheet,
@@ -37,7 +38,7 @@ export class TodosComponent implements OnInit {
    * new todo added to the store.
    */
   public addTodo() {
-    this.bottomSheet.open(AddTodoComponent);
+    this.bottomSheet.open(AddTodoComponent, {data: this.importanceStates});
   }
 
   /**
@@ -49,7 +50,7 @@ export class TodosComponent implements OnInit {
   public deleteTodo(todo) {
     const dialogRef = this.matDialog.open(DeleteTodoComponent, {
       width: '80%',
-      maxWidth: '450px',
+      maxWidth: '30rem',
       data: todo.todoMsg,
     });
     dialogRef.afterClosed().subscribe((result) => {

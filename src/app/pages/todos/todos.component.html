@@ -1,17 +1,11 @@
-<mat-card class="card" *ngFor="let todo of (todos$ | async) ">
-  <mat-card-header class="split-container">
-    <mat-card-title *ngIf="todo.todoMsg">{{todo.todoMsg}}</mat-card-title>
-    <button mat-icon-button aria-label="Delete Button"(click)="deleteTodo(todo)">
-      <mat-icon>delete</mat-icon>
-    </button>
-    <mat-card-subtitle>{{todo.endDate | date: 'shortDate'}}</mat-card-subtitle>
-  </mat-card-header>
-  <mat-card-content class="split-container">
-    <span>{{todo.isDone}}</span>
-    <mat-checkbox class="doneCheckbox"></mat-checkbox>
-  </mat-card-content>
-</mat-card>
+<main>
+  <app-todo-card *ngFor="let todo of (todos$ | async)" 
+    [todo] = todo
+    (deletedTodo)=deleteTodo(todo)>
+  </app-todo-card>
 
-<button mat-fab class="fab" (click)="addTodo()">
-  <mat-icon>add</mat-icon>
-</button>
+  <button mat-fab class="fab" (click)="addTodo()">
+    <mat-icon>add</mat-icon>
+  </button> 
+</main>
+

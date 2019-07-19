@@ -7,9 +7,9 @@
 
   <!--The header on the right side-->
   <mat-card-header class="header">
-      <mat-card-title>{{todo.todoMsg}}</mat-card-title>
+      <mat-card-title class="title">{{todo.todoMsg}}</mat-card-title>
       <mat-card-subtitle>{{todo.endDate | date: 'shortDate'}}</mat-card-subtitle>
-      <button class="trashcan" mat-icon-button aria-label="Delete Button"(click)="deletedTodo.emit(todo)">
+      <button class="trashcan" mat-icon-button aria-label="Delete Button"(click)="deletedTodo.emit()">
         <mat-icon>delete</mat-icon>
       </button>
   </mat-card-header>
