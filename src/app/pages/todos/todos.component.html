@@ -1,4 +1,13 @@
 <main>
+  <!--The headline above each column-->
+  <h3 *ngFor="let state of importanceStates; let i = index" 
+    class="importance-headline"
+    [ngClass]="{'card-column-zero': i === 0, 
+                'card-column-one': i === 1,
+                'card-column-two': i === 2,
+                'card-column-three': i === 3}">{{state}}</h3>
+  
+  <!--The todo-cards in each column-->
   <app-todo-card *ngFor="let todo of (todos$ | async)"
     [ngClass]="{'card-column-zero': todo.importance === 0, 
                 'card-column-one': todo.importance === 1,
@@ -8,6 +17,7 @@
     (deletedTodo)=deleteTodo(todo)>
   </app-todo-card>
 
+  <!--The fab button to add new todos-->
   <button mat-fab class="fab" (click)="addTodo()">
     <mat-icon>add</mat-icon>
   </button> 

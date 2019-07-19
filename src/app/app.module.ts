@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatListModule, MatCardModule,
    MatBottomSheetModule, MatSelectModule, MatFormFieldModule, MatInputModule, MatNativeDateModule } from '@angular/material';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSnackBarModule, MatDialogModule } from '@angular/material';
@@ -54,6 +55,7 @@ import { TodoCardComponent } from './components/todo-card/todo-card.component';
     MatExpansionModule,
     MatSnackBarModule,
     MatDialogModule,
+    MatTooltipModule,
 
     StoreModule.forRoot({todos: reducer})
   ],

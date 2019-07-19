@@ -1,49 +1,63 @@
-.card {
-    display: grid;
-    grid-template-columns: 10% 5% auto;
-    grid-template-rows: auto auto auto;
+/* Block container to wrap the whole card in a block */
+.block-container {
+    display: block;
+    /* Grid container for the intern grid */
+    .card {
+        display: grid;
+        grid-template-columns: 10% 10% auto;
+        grid-template-rows: auto auto auto;
+        /* The checkbox on the left */
+        .checkbox {
+            display: flex;
+            grid-column: 1 / 2;
+            grid-row: 1 / 4;
+            align-items: center;
+            justify-content: center;
+        }
+        /* The header that contains the title and subtitle */
+        .header {
+            grid-column: 3 / 4;
+            grid-row: 1 / 2;
+            display: flex;
+            justify-content: space-between;
+            min-width: 0px;
+        }
+
+        /* The horizontal line between checkbox and content */
+        .divider {
+            grid-column: 2 / 3;
+            grid-row: 1 / 4;
+            margin: 0 auto;
+        }
+   }
 }
 
-.header {
-    grid-column: 3 / 4;
-    grid-row: 1 / 2;
-    display: flex;
-    justify-content: space-between;
-}
-
-.divider {
-    grid-column: 2 / 3;
-    grid-row: 1 / 4;
-    margin: 0 auto;
-}
-
-.checkbox {
-    display: flex;
-    grid-column: 1 / 2;
-    grid-row: 1 / 4;
-    align-items: center;
-    justify-content: center;
-}
-
+ /* The text at the bottom of the card */
 .details {
     grid-column: 3 / 4;
     grid-row: 3 / 4;
+    p {
+        word-break: break-all;
+    }
 }
 
+/* The image between the header and the content */
 .image {
     grid-column: 3 / 4;
     grid-row: 2 / 3;
 }
 
-::ng-deep .mat-card-header-text {
-    margin: 0rem 0rem !important
+/* The title of each card */
+.title-closed {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
-.trashcan {
-    margin-top: -0.625rem; 
-    margin-right: -0.625rem;
-}
-
-.title {
+.title-expanded {
     word-break: break-all;
+}
+
+mat-card-title {
+    margin: auto 0px;
 }

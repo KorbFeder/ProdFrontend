@@ -1,25 +1,29 @@
 
+$todoColumns: 4;
+
+/* Todo cards */
 app-todo-card {
-    display: block;
-    margin: 0 auto;
-    min-width: 20rem;
-    max-width: 35rem;
+    margin: auto;
+    &+app-todo-card{
+        margin-top: 1.125rem;
+    }
+    ::ng-deep .block-container {
+        width: calc(100vw / #{$todoColumns});
+    }
 }
 
-app-todo-card + app-todo-card {
-    margin-top: 1.125rem;
-}
-
+/* The fab button on the bottom right for adding todos */
 .fab {
     position: fixed;
     right: 1rem;
     bottom: 1rem;
 }
 
+/* The main grid container */
 main {
     display: grid;
     grid-auto-flow: column dense;
-    grid-template-columns: repeat(4, auto);
+    grid-template-columns: repeat($todoColumns, auto);
     grid-gap: 0.5rem;
 }
 
@@ -37,4 +41,9 @@ main {
 
 .card-column-three {
     grid-column: 4 / 5;
+}
+
+/* The headlines above each column */
+.importance-headline {
+    text-align: center;
 }

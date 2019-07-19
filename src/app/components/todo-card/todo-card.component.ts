@@ -7,11 +7,16 @@ import { TodoInterface } from 'src/app/core/models/todo-interface';
   styleUrls: ['./todo-card.component.scss']
 })
 export class TodoCardComponent implements OnInit {
+  public open = false;
+
   @Input()
   todo: TodoInterface;
 
   @Output()
-  deletedTodo = new EventEmitter<TodoInterface>();
+  deletedTodo = new EventEmitter<any>();
+
+  @Output()
+  editedTodo = new EventEmitter<any>();
 
   constructor() { }
 
