@@ -24,17 +24,28 @@ export class TodosComponent implements OnInit {
       select('todos'),
       map(result => result.todos)
     );
-    this.todos$.subscribe((result) => {console.log(result)});
+    this.todos$.subscribe();
     this.todoService.get().subscribe();
   }
 
   ngOnInit() {
   }
 
+  /**
+   * This gets triggered when the add-Todo button is pressed.
+   * An bottom sheet will get opened where the todo information should get entered, than there will be a
+   * new todo added to the store.
+   */
   public addTodo() {
     this.bottomSheet.open(AddTodoComponent);
   }
 
+  /**
+   * This gets triggered when the trashcan gets clicked This will open a dialog which asks the user
+   * if he really wants to delete it an than delete the todo form the store.
+   * 
+   * @param todo the todo which gets deleted
+   */
   public deleteTodo(todo) {
     const dialogRef = this.matDialog.open(DeleteTodoComponent, {
       width: '80%',

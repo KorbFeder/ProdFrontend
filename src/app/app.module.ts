@@ -19,6 +19,7 @@ import { AddTodoComponent } from './components/add-todo/add-todo.component';
 import { DeleteTodoComponent } from './components/delete-todo/delete-todo.component';
 import { StoreModule } from '@ngrx/store';
 import { reducer } from './store/todo.reducer';
+import { TodoCardComponent } from './components/todo-card/todo-card.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { reducer } from './store/todo.reducer';
     SettingsComponent,
     FitComponent,
     AddTodoComponent,
-    DeleteTodoComponent
+    DeleteTodoComponent,
+    TodoCardComponent
   ],
   imports: [
     BrowserModule,

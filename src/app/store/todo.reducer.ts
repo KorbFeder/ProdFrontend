@@ -3,14 +3,32 @@ import {LOAD, EDIT, REMOVE, ADD, LOADSINGLE} from 'src/app/store/todo.actions';
 import { TodoInterface } from '../core/models/todo-interface';
 import * as _ from 'lodash';
 
+/**
+ * Reducer Function for ngrx store.
+ * This holds the current state of the applications todos
+ */
+
+
+ /**
+  * The iState is the Object which is in the todo store, this will also be the Object which will be 
+  * retrieved.
+  */
 interface iState {
     todos: TodoInterface[];
 }
 
+/**
+ * The initial state, when the store gets started the first time, than the todo array is empty.
+ * But it will be filled as soon as there is a action on the reducer.
+ */
 export const initialState: iState = {
     todos: []
 };
 
+/**
+ * The todoReducer function. This function reacts if a certain action gets dispatched.
+ * It is a pure function and with the _.cloneDeep function, there will always be a new state.
+ */
 const todoReducer = createReducer(initialState,
     on(LOADSINGLE, (state, loadedTodoContainer) => {
         const newState = _.cloneDeep(state);
@@ -32,9 +50,7 @@ const todoReducer = createReducer(initialState,
     }),
     on(REMOVE, (state, idContainer) => {
         const newState = _.cloneDeep(state);
-        console.log(idContainer.id);
         newState.todos = newState.todos.filter((todo) => todo.id !== idContainer.id);
-        console.log(newState.todos);
         return newState;
     }),
     on(ADD, (state, addedTodoContainer) => {
