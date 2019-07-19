@@ -1,0 +1,44 @@
+.card {
+    display: grid;
+    grid-template-columns: 10% 5% auto;
+    grid-template-rows: auto auto auto;
+    max-width: 500px;
+}
+
+.header {
+    grid-column: 3 / 4;
+    grid-row: 1 / 2;
+    display: flex;
+    justify-content: space-between;
+}
+
+.divider {
+    grid-column: 2 / 3;
+    grid-row: 1 / 4;
+    margin: 0 auto;
+}
+
+.checkbox {
+    grid-column: 1 / 2;
+    grid-row: 1 / 4;
+    margin: auto auto;
+}
+
+.details {
+    grid-column: 3 / 4;
+    grid-row: 3 / 4;
+}
+
+.image {
+    grid-column: 3 / 4;
+    grid-row: 2 / 3;
+}
+
+::ng-deep .mat-card-header-text {
+    margin: 0px 0px !important
+}
+
+.trashcan {
+    margin-top: -10px; 
+    margin-right: -10px;
+}

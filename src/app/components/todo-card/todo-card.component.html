@@ -1,10 +1,24 @@
 <mat-card class = "card">
-  <mat-card-header>
-    <mat-card-title>{{todo.todoMsg}}</mat-card-title>
-    <mat-card-subtitle>{{todo.endDate}}</mat-card-subtitle>
-  </mat-card-header>
-  <mat-card-content>
-    
-  </mat-card-content>
+  <!--The checkbox on the left-->
+  <mat-checkbox class="checkbox" [(ngModel)]="todo.isDone"></mat-checkbox>
 
+  <!--The divider bar dividing the checkbox from the rest of the content-->
+  <mat-divider class="divider" [vertical]="true"></mat-divider>
+
+  <!--The header on the right side-->
+  <mat-card-header class="header">
+      <mat-card-title>{{todo.todoMsg}}</mat-card-title>
+      <mat-card-subtitle>{{todo.endDate | date: 'shortDate'}}</mat-card-subtitle>
+      <button class="trashcan" mat-icon-button aria-label="Delete Button"(click)="deletedTodo.emit(todo)">
+        <mat-icon>delete</mat-icon>
+      </button>
+  </mat-card-header>
+
+  <!--The image between the header and the details-->
+  <img mat-card-image class="image" *ngIf="todo.imgUrl" [src]="todo.imgUrl" alt="todo image">
+
+  <!--The details at the bottom-->
+  <mat-card-content class="details" *ngIf="todo.details">
+    <p>{{todo.details}}</p>
+  </mat-card-content>
 </mat-card>

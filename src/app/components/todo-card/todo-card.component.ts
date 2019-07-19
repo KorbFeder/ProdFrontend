@@ -14,7 +14,7 @@ export class TodoCardComponent implements OnInit {
   deletedTodo = new EventEmitter<TodoInterface>();
 
   @Output()
-  checkedTodo = new EventEmitter<TodoInterface>();
+  doneTodo = new EventEmitter<TodoInterface>();
 
   constructor() { }
 
