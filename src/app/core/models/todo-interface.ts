@@ -4,4 +4,6 @@ export interface TodoInterface {
     todoMsg: string;
     importance: number;
     endDate?: Date;
+    details?: string;
+    imgUrl?: string;
 }
