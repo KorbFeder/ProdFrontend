@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { TodoInterface } from 'src/app/core/models/todo-interface';
+import { TodosService } from 'src/app/core/services/todos.service';
 
 @Component({
   selector: 'app-todo-card',
@@ -18,9 +19,11 @@ export class TodoCardComponent implements OnInit {
   @Output()
   editedTodo = new EventEmitter<any>();
 
-  constructor() { }
+  @Output()
+  doneTodo = new EventEmitter<any>();
 
-  ngOnInit() {
-  }
+  constructor(private todoService: TodosService) { }
+
+  ngOnInit() {}
 
 }

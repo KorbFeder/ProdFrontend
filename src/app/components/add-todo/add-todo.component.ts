@@ -14,11 +14,17 @@ import { MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA } from '@angular/material';
 export class AddTodoComponent implements OnInit {
   /** The 3 importance states of a todo */
   public importanceStats: string[];
+  public todo: TodoInterface;
+  public headline = 'New Todo';
 
   constructor(private todoService: TodosService,
               @Inject(MAT_BOTTOM_SHEET_DATA) public data: any,
               private bottomSheet: MatBottomSheetRef<AddTodoComponent>) {
-    this.importanceStats = data;
+    this.importanceStats = data.importance;
+    if (data.todo) {
+      this.headline = 'Edit Todo';
+      this.todo = data.todo;
+    }
   }
 
   ngOnInit() {
@@ -32,10 +38,16 @@ export class AddTodoComponent implements OnInit {
    */
   public addTodo(value: {importance: number, todoMsg: string, endDate: Date, details: string}) {
     const tmp = {isDone: false};
+    if (this.importanceStats.indexOf("Done") === value.importance) {
+      tmp.isDone = true;
+    }
+    
     const todo: TodoInterface = Object.assign(tmp, value);
     todo.details = todo.details === '' ? null : todo.details;
     todo.endDate = <any>todo.endDate === '' ? null : todo.endDate;
-    this.todoService.save(todo).subscribe(result => console.log(result));
-    this.bottomSheet.dismiss();
+    if(this.todo) {
+      todo.id = this.todo.id;
+    }
+    this.bottomSheet.dismiss(todo);
   }
 }

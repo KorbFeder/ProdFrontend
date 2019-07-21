@@ -7,6 +7,7 @@ import { DeleteTodoComponent } from 'src/app/components/delete-todo/delete-todo.
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { map } from 'rxjs/operators';
+import { CloseScrollStrategy } from '@angular/cdk/overlay';
 
 @Component({
   selector: 'app-todos',
@@ -38,7 +39,12 @@ export class TodosComponent implements OnInit {
    * new todo added to the store.
    */
   public addTodo() {
-    this.bottomSheet.open(AddTodoComponent, {data: this.importanceStates});
+    const ref = this.bottomSheet.open(AddTodoComponent, {data: {importance: this.importanceStates}});
+    ref.afterDismissed().subscribe((todo) => {
+      if (todo) {
+        this.todoService.save(todo).subscribe();
+      }
+    });
   }
 
   /**
@@ -57,6 +63,17 @@ export class TodosComponent implements OnInit {
       if (result === true) {
         this.todoService.delete(todo.id).subscribe();
       }
+    });
+  }
+
+  public doneTodo(todo: TodoInterface) {
+    this.todoService.update(todo).subscribe();
+  }
+
+  public editTodo(curr_todo: TodoInterface) {
+    const ref = this.bottomSheet.open(AddTodoComponent, {data: {importance: this.importanceStates, todo: curr_todo}});
+    ref.afterDismissed().subscribe((todo) => {
+      this.todoService.update(todo).subscribe();
     });
   }
 }

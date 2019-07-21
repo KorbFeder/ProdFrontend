@@ -1,7 +1,7 @@
 <form class="form" #form="ngForm"(ngSubmit)="addTodo(form.value)">
-  <h1>New Todo</h1>
+  <h1>{{headline}}</h1>
   <mat-form-field>
-    <mat-select placeholder="Importance" name="importance" ngModel #importanceSelect="ngModel" required>
+    <mat-select placeholder="Importance" name="importance" [ngModel]="todo?.importance" ngModel #importanceSelect="ngModel" required>
       <mat-option *ngFor="let state of importanceStats; index as i" [value]="i">
         {{state}}
       </mat-option>
@@ -11,18 +11,18 @@
     </mat-error>
   </mat-form-field>
   <mat-form-field>
-    <input matInput placeholder="Todo task" name="todoMsg" ngModel #todoText="ngModel" required>
+    <input matInput placeholder="Todo task" name="todoMsg" [ngModel]="todo?.todoMsg" ngModel #todoText="ngModel" required>
     <mat-error *ngIf="todoText.hasError('required')">
       Please enter the todo task
     </mat-error>
   </mat-form-field>
   <mat-form-field>
-    <input matInput [matDatepicker]="picker" placeholder="Finishing date" name="endDate" ngModel>
+    <input matInput [matDatepicker]="picker" placeholder="Finishing date" [ngModel]="todo?.endDate" name="endDate" ngModel>
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
   <mat-form-field>
-    <textarea matInput placeholder="Todo details" name="details" ngModel></textarea>
+    <textarea matInput placeholder="Todo details" name="details" [ngModel]="todo?.details" ngModel></textarea>
   </mat-form-field>
   <button type="submit" class="submit-button" [disabled]="!form.valid" 
     mat-raised-button color="primary">Save</button>

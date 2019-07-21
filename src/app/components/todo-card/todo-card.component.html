@@ -2,7 +2,7 @@
   <mat-card class = "card">
 
     <!--The checkbox on the left-->
-    <mat-checkbox class="checkbox" [(ngModel)]="todo.isDone"></mat-checkbox>
+    <mat-checkbox class="checkbox" [(ngModel)]="todo.isDone" (change)="doneTodo.emit()"></mat-checkbox>
 
     <!--The divider bar dividing the checkbox from the rest of the content-->
     <mat-divider class="divider" [vertical]="true"></mat-divider>
@@ -19,6 +19,7 @@
     </div>
 
     <div *ngIf="open">
+      <p>{{todo.isDone}}</p>
       <p *ngIf="todo.endDate">
         Deadline: {{todo.endDate | date: 'shortDate'}}
       </p>
@@ -27,6 +28,7 @@
 
       <!--The details at the bottom-->
       <mat-card-content class="details" *ngIf="todo.details">
+        <p>Details:</p>
         <p>{{todo.details}}</p>
       </mat-card-content>
       <mat-card-actions>
