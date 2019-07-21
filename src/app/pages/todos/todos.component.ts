@@ -7,6 +7,7 @@ import { DeleteTodoComponent } from 'src/app/components/delete-todo/delete-todo.
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { map } from 'rxjs/operators';
+import { ConnectionService } from 'src/app/core/services/connection.service';
 
 @Component({
   selector: 'app-todos',
@@ -20,6 +21,7 @@ export class TodosComponent implements OnInit {
   constructor(private todoService: TodosService,
               private bottomSheet: MatBottomSheet,
               private matDialog: MatDialog,
+              private connetion: ConnectionService,
               private store: Store<{todos: TodoInterface[]}>) {
     this.todos$ = store.pipe(
       select('todos'),
