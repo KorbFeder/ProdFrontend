@@ -21,14 +21,18 @@ export class TodosComponent implements OnInit {
   constructor(private todoService: TodosService,
               private bottomSheet: MatBottomSheet,
               private matDialog: MatDialog,
-              private connetion: ConnectionService,
+              private connection: ConnectionService,
               private store: Store<{todos: TodoInterface[]}>) {
     this.todos$ = store.pipe(
       select('todos'),
       map(result => result.todos)
     );
     this.todos$.subscribe();
-    this.todoService.get().subscribe();
+    this.connection.connected$.subscribe((connected) => {
+      if (connected) {
+        this.todoService.get().subscribe();
+      }
+    });
   }
 
   ngOnInit() {
