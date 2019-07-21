@@ -41,11 +41,8 @@ const todoReducer = createReducer(initialState,
     }),
     on(EDIT, (state, editedTodoContainer) => {
         const todoState: iState = _.cloneDeep(state);
-        todoState.todos.forEach((todo) => {
-            if (todo.id === editedTodoContainer.todo.id) {
-                return _.cloneDeep(editedTodoContainer.todo);
-            }
-        });
+        const index = todoState.todos.findIndex(x => x.id === editedTodoContainer.todo.id);
+        todoState.todos[index] = _.cloneDeep(editedTodoContainer.todo);
         return todoState;
     }),
     on(REMOVE, (state, idContainer) => {
