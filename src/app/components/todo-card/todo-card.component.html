@@ -19,7 +19,6 @@
     </div>
 
     <div *ngIf="open">
-      <p>{{todo.isDone}}</p>
       <p *ngIf="todo.endDate">
         Deadline: {{todo.endDate | date: 'shortDate'}}
       </p>

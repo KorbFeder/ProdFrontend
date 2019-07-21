@@ -41,7 +41,6 @@ export class AddTodoComponent implements OnInit {
     if (this.importanceStats.indexOf("Done") === value.importance) {
       tmp.isDone = true;
     }
-    
     const todo: TodoInterface = Object.assign(tmp, value);
     todo.details = todo.details === '' ? null : todo.details;
     todo.endDate = <any>todo.endDate === '' ? null : todo.endDate;

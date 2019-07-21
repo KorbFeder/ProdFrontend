@@ -6,7 +6,7 @@ app-todo-card {
     margin: auto;
     margin-top: 1.125rem;
     ::ng-deep .block-container {
-        width: calc(100vw / #{$todoColumns});
+        width: calc(95vw / #{$todoColumns});
     }
 }
 

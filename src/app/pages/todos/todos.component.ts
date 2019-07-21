@@ -7,7 +7,6 @@ import { DeleteTodoComponent } from 'src/app/components/delete-todo/delete-todo.
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { map } from 'rxjs/operators';
-import { CloseScrollStrategy } from '@angular/cdk/overlay';
 
 @Component({
   selector: 'app-todos',
@@ -66,10 +65,21 @@ export class TodosComponent implements OnInit {
     });
   }
 
+  /**
+   * This method gets triggered when the checkbox state gets changed.
+   * 
+   * @param todo the todo object which just got its isDone property changed
+   */
   public doneTodo(todo: TodoInterface) {
     this.todoService.update(todo).subscribe();
   }
 
+  /**
+   * This method get triggered when the edit button gets clicked. It opens the add todo dialog and than
+   * lets you alter the todo.
+   * 
+   * @param curr_todo The edited todo
+   */
   public editTodo(curr_todo: TodoInterface) {
     const ref = this.bottomSheet.open(AddTodoComponent, {data: {importance: this.importanceStates, todo: curr_todo}});
     ref.afterDismissed().subscribe((todo) => {
