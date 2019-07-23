@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import {webSocket} from 'rxjs/webSocket';
 import { BehaviorSubject } from 'rxjs';
 
@@ -6,19 +6,20 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class ConnectionService {
-  private wsSubj;
   public connected$: BehaviorSubject<boolean> = new BehaviorSubject(true);
 
-  constructor() {
+  constructor(private zone: NgZone) {
     this.startSocket();
   }
 
   private startSocket() {
-    this.wsSubj = webSocket('ws://localhost/api/alive');
-    this.wsSubj.subscribe((msg) => {
+    const wsSubj = webSocket('ws://localhost/api/alive');
+    wsSubj.subscribe((msg) => {
       if (msg === 'ping') {
-        this.connected$.next(true);
-        this.wsSubj.next('pong');
+        if (this.connected$.value === false) {
+          this.connected$.next(true);
+        }
+        wsSubj.next('pong');
       }
     }, (err) => {
       this.connected$.next(false);

@@ -21,6 +21,7 @@ import { DeleteTodoComponent } from './components/delete-todo/delete-todo.compon
 import { StoreModule } from '@ngrx/store';
 import { reducer } from './store/todo.reducer';
 import { TodoCardComponent } from './components/todo-card/todo-card.component';
+import { SecureImageComponent } from './components/secure-image/secure-image.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { TodoCardComponent } from './components/todo-card/todo-card.component';
     FitComponent,
     AddTodoComponent,
     DeleteTodoComponent,
-    TodoCardComponent
+    TodoCardComponent,
+    SecureImageComponent
   ],
   imports: [
     BrowserModule,

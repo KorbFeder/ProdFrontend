@@ -16,6 +16,7 @@ export class AddTodoComponent implements OnInit {
   public importanceStats: string[];
   public todo: TodoInterface;
   public headline = 'New Todo';
+  public file: File = null;
 
   constructor(private todoService: TodosService,
               @Inject(MAT_BOTTOM_SHEET_DATA) public data: any,
@@ -29,6 +30,11 @@ export class AddTodoComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  public onFileSelected(event) {
+    this.file = event.target.files[0];
+  }
+
 
   /**
    * This method gets triggered, when save button gets triggered, it will save the data to the store and
@@ -47,6 +53,6 @@ export class AddTodoComponent implements OnInit {
     if(this.todo) {
       todo.id = this.todo.id;
     }
-    this.bottomSheet.dismiss(todo);
+    this.bottomSheet.dismiss({todo, file: this.file});
   }
 }

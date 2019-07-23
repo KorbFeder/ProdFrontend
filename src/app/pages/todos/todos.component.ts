@@ -6,7 +6,7 @@ import { TodosService } from 'src/app/core/services/todos.service';
 import { DeleteTodoComponent } from 'src/app/components/delete-todo/delete-todo.component';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
-import { map } from 'rxjs/operators';
+import { map, mergeMap } from 'rxjs/operators';
 import { ConnectionService } from 'src/app/core/services/connection.service';
 
 @Component({
@@ -47,7 +47,16 @@ export class TodosComponent implements OnInit {
     const ref = this.bottomSheet.open(AddTodoComponent, {data: {importance: this.importanceStates}});
     ref.afterDismissed().subscribe((todo) => {
       if (todo) {
-        this.todoService.save(todo).subscribe();
+        if (todo.file) {
+          this.todoService.upload(todo.file).pipe(
+            mergeMap((path: string) => {
+              todo.todo.imgUrl = path;
+              return this.todoService.save(todo.todo);
+            })
+          ).subscribe();
+        }else{
+          this.todoService.save(todo.todo).subscribe();
+        }
       }
     });
   }
@@ -89,7 +98,7 @@ export class TodosComponent implements OnInit {
   public editTodo(curr_todo: TodoInterface) {
     const ref = this.bottomSheet.open(AddTodoComponent, {data: {importance: this.importanceStates, todo: curr_todo}});
     ref.afterDismissed().subscribe((todo) => {
-      this.todoService.update(todo).subscribe();
+      this.todoService.update(todo.todo).subscribe();
     });
   }
 }

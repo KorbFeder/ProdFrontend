@@ -2,7 +2,7 @@
   <mat-card class = "card">
 
     <!--The checkbox on the left-->
-    <mat-checkbox class="checkbox" [(ngModel)]="todo.isDone" (change)="doneTodo.emit()"></mat-checkbox>
+    <mat-checkbox [disabled]="todo.importance === 3" class="checkbox" [(ngModel)]="todo.isDone" (change)="doneTodo.emit()"></mat-checkbox>
 
     <!--The divider bar dividing the checkbox from the rest of the content-->
     <mat-divider class="divider" [vertical]="true"></mat-divider>
@@ -12,7 +12,7 @@
       <mat-card-title [ngClass]="{'title-expanded': open, 'title-closed': !open}">
         {{todo.todoMsg}}
       </mat-card-title>
-      <button mat-icon-button aria-label="Delete Button" (click)="open ? open = false : open = true;">
+      <button mat-icon-button aria-label="expand" (click)="open ? open = false : open = true;">
         <mat-icon *ngIf="!open">expand_more</mat-icon>
         <mat-icon *ngIf="open">expand_less</mat-icon>
       </button>
@@ -23,7 +23,7 @@
         Deadline: {{todo.endDate | date: 'shortDate'}}
       </p>
       <!--The image between the header and the details-->
-      <img mat-card-image class="image" *ngIf="todo.imgUrl" [src]="todo.imgUrl" alt="todo image">
+      <app-secure-image class="image" *ngIf="todo.imgUrl" [src]="todo.imgUrl" [endpoint]="'/api/todos/file'"></app-secure-image>
 
       <!--The details at the bottom-->
       <mat-card-content class="details" *ngIf="todo.details">

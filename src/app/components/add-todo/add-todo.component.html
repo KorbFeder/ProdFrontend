@@ -1,5 +1,6 @@
 <form class="form" #form="ngForm"(ngSubmit)="addTodo(form.value)">
   <h1>{{headline}}</h1>
+  <!--The importance, in which column the card should be sorted in-->
   <mat-form-field>
     <mat-select placeholder="Importance" name="importance" [ngModel]="todo?.importance" ngModel #importanceSelect="ngModel" required>
       <mat-option *ngFor="let state of importanceStats; index as i" [value]="i">
@@ -10,20 +11,34 @@
       Please chose one of the options
     </mat-error>
   </mat-form-field>
+  <!--The main task / card title-->
   <mat-form-field>
     <input matInput placeholder="Todo task" name="todoMsg" [ngModel]="todo?.todoMsg" ngModel #todoText="ngModel" required>
     <mat-error *ngIf="todoText.hasError('required')">
       Please enter the todo task
     </mat-error>
   </mat-form-field>
+  <!--The date-picker-->
   <mat-form-field>
     <input matInput [matDatepicker]="picker" placeholder="Finishing date" [ngModel]="todo?.endDate" name="endDate" ngModel>
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
+  <!--The file upload-->
+  <div class="file-upload">
+    <p>
+      <button type="button" mat-raised-button color="primary" (click)="fileInput.click()">
+        Choose File
+      </button> 
+      &nbsp;{{file?.name}}
+    </p> 
+    <input hidden #fileInput type="file" name="todo-image" (change)="onFileSelected($event)" accept="image/*">
+  </div>
+  <!--The details-->
   <mat-form-field>
     <textarea matInput placeholder="Todo details" name="details" [ngModel]="todo?.details" ngModel></textarea>
   </mat-form-field>
+  <!--The submit button-->
   <button type="submit" class="submit-button" [disabled]="!form.valid" 
     mat-raised-button color="primary">Save</button>
 </form>

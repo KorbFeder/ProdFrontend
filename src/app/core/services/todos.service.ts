@@ -4,7 +4,7 @@ import { TodoInterface } from '../models/todo-interface';
 import { ApiService } from './api.service';
 import { HttpParams } from '@angular/common/http';
 import { Store } from '@ngrx/store';
-import { tap } from 'rxjs/operators';
+import { tap, map } from 'rxjs/operators';
 import { LOAD, LOADSINGLE, ADD, EDIT, REMOVE } from 'src/app/store/todo.actions';
 
 /**
@@ -75,5 +75,12 @@ export class TodosService {
       );
     }
 
+    public upload(file: File) {
+      const formData: FormData = new FormData();
+      formData.append('streamfile', file, file.name);
+      return this.api.post('/todos/file', formData).pipe(
+        map(result => result.path)
+      );
+    }
 
 }
