@@ -76,6 +76,9 @@ export class TodosComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result === true) {
         this.todoService.delete(todo.id).subscribe();
+        if (todo.imgUrl) {
+          this.todoService.deleteFile(todo.imgUrl).subscribe();
+        }
       }
     });
   }
@@ -98,7 +101,19 @@ export class TodosComponent implements OnInit {
   public editTodo(curr_todo: TodoInterface) {
     const ref = this.bottomSheet.open(AddTodoComponent, {data: {importance: this.importanceStates, todo: curr_todo}});
     ref.afterDismissed().subscribe((todo) => {
-      this.todoService.update(todo.todo).subscribe();
+      if (todo.file) {
+        if (todo.todo.imgUrl) {
+          this.todoService.deleteFile(todo.todo.imgUrl).subscribe();
+        }
+        this.todoService.upload(todo.file).pipe(
+          mergeMap((path: string) => {
+            todo.todo.imgUrl = path;
+            return this.todoService.update(todo.todo);
+          })
+        ).subscribe();
+      } else {
+        this.todoService.update(todo.todo).subscribe();
+      }
     });
-  }
+ }
 }

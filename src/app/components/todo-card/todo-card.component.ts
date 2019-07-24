@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { TodoInterface } from 'src/app/core/models/todo-interface';
 import { TodosService } from 'src/app/core/services/todos.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-todo-card',
@@ -9,6 +10,7 @@ import { TodosService } from 'src/app/core/services/todos.service';
 })
 export class TodoCardComponent implements OnInit {
   public open = false;
+  public file_location = environment.file_location;
 
   @Input()
   todo: TodoInterface;

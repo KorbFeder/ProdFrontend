@@ -52,6 +52,7 @@ export class AddTodoComponent implements OnInit {
     todo.endDate = <any>todo.endDate === '' ? null : todo.endDate;
     if(this.todo) {
       todo.id = this.todo.id;
+      todo.imgUrl = this.todo.imgUrl;
     }
     this.bottomSheet.dismiss({todo, file: this.file});
   }

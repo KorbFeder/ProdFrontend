@@ -6,6 +6,7 @@ import { HttpParams } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { tap, map } from 'rxjs/operators';
 import { LOAD, LOADSINGLE, ADD, EDIT, REMOVE } from 'src/app/store/todo.actions';
+import { environment } from 'src/environments/environment';
 
 /**
  * This is a wrapper service for api service, so i can be switched out by any other database/service
@@ -81,6 +82,10 @@ export class TodosService {
       return this.api.post('/todos/file', formData).pipe(
         map(result => result.path)
       );
+    }
+
+    public deleteFile(filePath: string) {
+      return this.api.delete(`/todos/file${filePath}`);
     }
 
 }
