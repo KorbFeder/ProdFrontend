@@ -30,7 +30,7 @@
       <button type="button" mat-raised-button color="primary" (click)="fileInput.click()">
         Choose File
       </button> 
-      &nbsp;{{file?.name}}
+      &nbsp;{{fileLabel}}
     </p> 
     <input hidden #fileInput type="file" name="todo-image" (change)="onFileSelected($event)" accept="image/*">
   </div>

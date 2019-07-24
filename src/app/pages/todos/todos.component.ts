@@ -45,17 +45,17 @@ export class TodosComponent implements OnInit {
    */
   public addTodo() {
     const ref = this.bottomSheet.open(AddTodoComponent, {data: {importance: this.importanceStates}});
-    ref.afterDismissed().subscribe((todo) => {
-      if (todo) {
-        if (todo.file) {
-          this.todoService.upload(todo.file).pipe(
+    ref.afterDismissed().subscribe((response) => {
+      if (response) {
+        if (response.file) {
+          this.todoService.upload(response.file).pipe(
             mergeMap((path: string) => {
-              todo.todo.imgUrl = path;
-              return this.todoService.save(todo.todo);
+              response.todo.imgUrl = path;
+              return this.todoService.save(response.todo);
             })
           ).subscribe();
         }else{
-          this.todoService.save(todo.todo).subscribe();
+          this.todoService.save(response.todo).subscribe();
         }
       }
     });
@@ -100,19 +100,21 @@ export class TodosComponent implements OnInit {
    */
   public editTodo(curr_todo: TodoInterface) {
     const ref = this.bottomSheet.open(AddTodoComponent, {data: {importance: this.importanceStates, todo: curr_todo}});
-    ref.afterDismissed().subscribe((todo) => {
-      if (todo.file) {
-        if (todo.todo.imgUrl) {
-          this.todoService.deleteFile(todo.todo.imgUrl).subscribe();
+    ref.afterDismissed().subscribe((response) => {
+      if (response) {
+        if (response.file) {
+          if (response.todo.imgUrl) {
+            this.todoService.deleteFile(response.todo.imgUrl).subscribe();
+          }
+          this.todoService.upload(response.file).pipe(
+            mergeMap((path: string) => {
+              response.todo.imgUrl = path;
+              return this.todoService.update(response.todo);
+            })
+          ).subscribe();
+        } else {
+          this.todoService.update(response.todo).subscribe();
         }
-        this.todoService.upload(todo.file).pipe(
-          mergeMap((path: string) => {
-            todo.todo.imgUrl = path;
-            return this.todoService.update(todo.todo);
-          })
-        ).subscribe();
-      } else {
-        this.todoService.update(todo.todo).subscribe();
       }
     });
  }

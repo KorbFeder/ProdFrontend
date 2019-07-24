@@ -16,6 +16,7 @@ export class AddTodoComponent implements OnInit {
   public importanceStats: string[];
   public todo: TodoInterface;
   public headline = 'New Todo';
+  public fileLabel: string = '';
   public file: File = null;
 
   constructor(private todoService: TodosService,
@@ -25,6 +26,9 @@ export class AddTodoComponent implements OnInit {
     if (data.todo) {
       this.headline = 'Edit Todo';
       this.todo = data.todo;
+      const nameArray = this.todo.imgUrl.split('/');
+      const name = nameArray[nameArray.length - 1].split('-');
+      this.fileLabel = name[0];
     }
   }
 
@@ -33,6 +37,7 @@ export class AddTodoComponent implements OnInit {
 
   public onFileSelected(event) {
     this.file = event.target.files[0];
+    this.fileLabel = this.file.name;
   }
 
 
