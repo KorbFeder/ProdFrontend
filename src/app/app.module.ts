@@ -22,6 +22,7 @@ import { StoreModule } from '@ngrx/store';
 import { reducer } from './store/todo.reducer';
 import { TodoCardComponent } from './components/todo-card/todo-card.component';
 import { SecureImageComponent } from './components/secure-image/secure-image.component';
+import { FoodComponent } from './pages/food/food.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { SecureImageComponent } from './components/secure-image/secure-image.com
     AddTodoComponent,
     DeleteTodoComponent,
     TodoCardComponent,
-    SecureImageComponent
+    SecureImageComponent,
+    FoodComponent
   ],
   imports: [
     BrowserModule,
