@@ -4,7 +4,7 @@
       <mat-card-title>Login</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <form #form="ngForm" (ngSubmit)=login(form.value)>
+      <form #form="ngForm" (ngSubmit)="login(form.value); form.reset(); form.resetForm()">
         <mat-form-field>
           <input matInput placeholder="Username" name="username" ngModel #usernameField="ngModel" required>
           <mat-error *ngIf="usernameField.hasError('required')">
@@ -12,7 +12,7 @@
           </mat-error>
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="Password" name="password" ngModel #passwordField="ngModel" required>
+          <input matInput type="password" placeholder="Password" name="password" ngModel #passwordField="ngModel" required>
           <mat-error *ngIf="passwordField.hasError('required')">
             Please enter a password
           </mat-error>
@@ -22,6 +22,9 @@
         </div>
         <button class="submit-button" type="submit" [disabled]="!form.valid" mat-raised-button color="primary">Sign in</button>
         <button type="button" (click)="register()" mat-raised-button color="primary">Sign up</button>
+        <mat-error class="unauth" *ngIf="unauthorized">
+          Username or Password is wrong
+        </mat-error>
       </form>
     </mat-card-content>
   </mat-card>

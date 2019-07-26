@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   public loginData: AuthInterface;
+  public unauthorized = false;
 
   constructor(private auth: AuthService,
               private router: Router) { }
@@ -22,6 +23,8 @@ export class LoginComponent implements OnInit {
       if (this.auth.isLoggedIn()) {
         this.router.navigate(['/todos']);
       }
+    }, (error) => {
+      this.unauthorized = true;
     });
   }
 

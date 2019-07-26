@@ -27,7 +27,7 @@ mat-form-field {
 }
 
 ::ng-deep .mat-button-wrapper {
-    font-size: 18px !important;
+    font-size: 1.125rem !important;
 }
 
 .submit-button {
@@ -38,4 +38,9 @@ mat-form-field {
     margin-top: 1.2rem; 
     margin-bottom: 0.5rem;
     margin-left: 0.1rem;
+}
+
+.unauth {
+    margin-top: 1rem;
+    font-size: 1.125rem;
 }

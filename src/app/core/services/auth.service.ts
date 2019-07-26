@@ -3,6 +3,7 @@ import { ApiService } from './api.service';
 import { tap, shareReplay } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import * as moment from 'moment';
+import { AuthInterface } from '../models/auth-interface';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,10 @@ export class AuthService {
       tap(res => this.setSession(res)),
       shareReplay()
     );
+  }
+
+  public register(user: AuthInterface) {
+    return this.api.post('/register', {user});
   }
 
   private setSession(authResult) {

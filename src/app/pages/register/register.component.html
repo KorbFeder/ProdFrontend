@@ -1,3 +1,30 @@
-<p>
-  register works!
-</p>
+<div class="center-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Register</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form #form="ngForm" (ngSubmit)="register(form.value); form.reset(); form.resetForm()">
+        <mat-form-field>
+          <input matInput placeholder="Username" name="username" ngModel #usernameField="ngModel" required>
+          <mat-error *ngIf="usernameField.hasError('required')">
+            Please enter a username
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input type="password" matInput placeholder="Password" name="password" ngModel #passwordField="ngModel" required>
+          <mat-error *ngIf="passwordField.hasError('required')">
+            Please enter a password
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="E-Mail" name="email" ngModel>
+        </mat-form-field>
+        <button class="submit-button" type="submit" [disabled]="!form.valid" mat-raised-button color="primary">Sign up</button>
+        <mat-error class="unauth" *ngIf="failed">
+          Username or Email is already in use
+        </mat-error>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
