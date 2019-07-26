@@ -1,0 +1,28 @@
+<div class="center-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Login</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form #form="ngForm" (ngSubmit)=login(form.value)>
+        <mat-form-field>
+          <input matInput placeholder="Username" name="username" ngModel #usernameField="ngModel" required>
+          <mat-error *ngIf="usernameField.hasError('required')">
+            Please enter a username
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Password" name="password" ngModel #passwordField="ngModel" required>
+          <mat-error *ngIf="passwordField.hasError('required')">
+            Please enter a password
+          </mat-error>
+        </mat-form-field>
+        <div class="forgot-password">
+          <a routerLink="../forgot">Forgot Password?</a>
+        </div>
+        <button class="submit-button" type="submit" [disabled]="!form.valid" mat-raised-button color="primary">Sign in</button>
+        <button type="button" (click)="register()" mat-raised-button color="primary">Sign up</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

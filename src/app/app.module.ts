@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -23,6 +23,10 @@ import { reducer } from './store/todo.reducer';
 import { TodoCardComponent } from './components/todo-card/todo-card.component';
 import { SecureImageComponent } from './components/secure-image/secure-image.component';
 import { FoodComponent } from './pages/food/food.component';
+import { AuthInterceptor } from './core/interceptors/AuthInterceptor';
+import { LoginComponent } from './pages/login/login.component';
+import { RegisterComponent } from './pages/register/register.component';
+import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +38,10 @@ import { FoodComponent } from './pages/food/food.component';
     DeleteTodoComponent,
     TodoCardComponent,
     SecureImageComponent,
-    FoodComponent
+    FoodComponent,
+    LoginComponent,
+    RegisterComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     BrowserModule,
@@ -64,7 +71,10 @@ import { FoodComponent } from './pages/food/food.component';
     StoreModule.forRoot({todos: reducer})
   ],
   entryComponents: [AddTodoComponent, DeleteTodoComponent],
-  providers: [MatDatepickerModule],
+  providers: [
+    MatDatepickerModule,
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
