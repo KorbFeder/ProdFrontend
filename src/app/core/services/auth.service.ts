@@ -1,20 +1,26 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
 import { tap, shareReplay } from 'rxjs/operators';
-import { Observable } from 'rxjs';
 import * as moment from 'moment';
 import { AuthInterface } from '../models/auth-interface';
+import { UserServiceService } from './user-service.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private api: ApiService) { }
+  constructor(private api: ApiService,
+              private userService: UserServiceService) { }
 
   public login(username, password) {
     return this.api.post('/login', {username, password}).pipe(
       tap(res => this.setSession(res)),
+      tap(res => {
+        if (res.userId) {
+          this.userService.setUser(username, res.userId);
+        }
+      }),
       shareReplay()
     );
   }
@@ -31,6 +37,7 @@ export class AuthService {
   }
 
   public logout() {
+    this.userService.setUser('', null);
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
   }
@@ -42,7 +49,11 @@ export class AuthService {
   }
 
   public isLoggedIn() {
-    return moment().isBefore(this.getExpiration());
+    const isLoggedIn = moment().isBefore(this.getExpiration());
+    if (!isLoggedIn) {
+      this.userService.setUser('', null);
+    }
+    return isLoggedIn;
   }
 
   public isLoggedOut() {

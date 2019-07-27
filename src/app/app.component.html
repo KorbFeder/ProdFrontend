@@ -24,7 +24,20 @@
       <button (click)="sidenav.toggle()" mat-icon-button aria-label="Slides navigation side bar open">
         <mat-icon>menu</mat-icon>
       </button>
-      Productivity
+      <div class="toolbar-container">
+        <p>Productivity</p>
+        <div class="account-container">
+          <p>{{(username$ | async)?.username}}</p>
+          <button class="account-button" mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon class="account-icon">account_circle</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item *ngIf="(username$ | async).username === ''" (click)="logIn()">Log In</button>
+            <button mat-menu-item *ngIf="(username$ | async).username !== ''" (click)="logOut()">Log out</button>
+            <button mat-menu-item (click)="register()">Register</button>
+          </mat-menu>
+        </div>
+      </div>
     </mat-toolbar>
     <main class="content">
       <router-outlet></router-outlet>

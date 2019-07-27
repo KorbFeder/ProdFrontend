@@ -38,3 +38,35 @@ $primary: mat-color($primary-palette);
     display: block;
     width: 100%;
 }
+
+.toolbar-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.account-icon {
+    width: 3.125rem;
+    height: 3.125rem;
+    font-size: 3.125rem;
+    line-height: 3.125rem !important;
+}
+
+.account-button {
+    width: 3.125rem;
+    height: 3.125rem;
+}
+
+.account-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    
+    p {
+        font-size: 1.125rem;
+        font-weight: normal;
+        margin-right: 0.9rem;
+    }
+}
