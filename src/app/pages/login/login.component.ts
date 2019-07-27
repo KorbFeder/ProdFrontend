@@ -12,9 +12,12 @@ import { UserServiceService } from 'src/app/core/services/user-service.service';
 export class LoginComponent implements OnInit {
   public loginData: AuthInterface;
   public unauthorized = false;
+  public alreadyLoggedIn$;
 
   constructor(private auth: AuthService,
-              private router: Router) { }
+              private router: Router) {
+    this.alreadyLoggedIn$ = this.auth.isLoggedIn$;
+  }
 
   ngOnInit() {
   }

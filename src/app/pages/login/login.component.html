@@ -6,13 +6,13 @@
     <mat-card-content>
       <form #form="ngForm" (ngSubmit)="login(form.value); form.reset(); form.resetForm()">
         <mat-form-field>
-          <input matInput placeholder="Username" name="username" ngModel #usernameField="ngModel" required>
+          <input [disabled]="alreadyLoggedIn$ | async" matInput placeholder="Username" name="username" ngModel #usernameField="ngModel" required>
           <mat-error *ngIf="usernameField.hasError('required')">
             Please enter a username
           </mat-error>
         </mat-form-field>
         <mat-form-field>
-          <input matInput type="password" placeholder="Password" name="password" ngModel #passwordField="ngModel" required>
+          <input [disabled]="alreadyLoggedIn$ | async" matInput type="password" placeholder="Password" name="password" ngModel #passwordField="ngModel" required>
           <mat-error *ngIf="passwordField.hasError('required')">
             Please enter a password
           </mat-error>
@@ -24,6 +24,9 @@
         <button type="button" (click)="register()" mat-raised-button color="primary">Sign up</button>
         <mat-error class="unauth" *ngIf="unauthorized">
           Username or Password is wrong
+        </mat-error>
+        <mat-error class="unauth" *ngIf="alreadyLoggedIn$ | async">
+          Already logged in, logout first
         </mat-error>
       </form>
     </mat-card-content>
