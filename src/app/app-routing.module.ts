@@ -12,11 +12,11 @@ import { LoginGuardService } from './core/guards/login-guard.service';
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
+  {path: 'forgot', component: ForgotPasswordComponent},
   {path: 'todos', component: TodosComponent, canActivate: [LoginGuardService]},
   {path: 'settings', component: SettingsComponent, canActivate: [LoginGuardService]},
   {path: 'fit', component: FitComponent, canActivate: [LoginGuardService]},
   {path: 'food', component: FoodComponent, canActivate: [LoginGuardService]},
-  {path: 'forgot', component: ForgotPasswordComponent, canActivate: [LoginGuardService]},
   {path: '', redirectTo: 'todos', pathMatch: 'full'}
 ];
 

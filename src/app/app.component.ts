@@ -16,12 +16,11 @@ export class AppComponent {
               private auth: AuthService,
               private router: Router) {
     this.username$ = this.userService.user$;
-    this.username$.subscribe((res) => console.log(res));
+    this.username$.subscribe();
   }
 
   logOut() {
     this.auth.logout();
-    this.router.navigate(['/login']);
   }
 
   register() {
