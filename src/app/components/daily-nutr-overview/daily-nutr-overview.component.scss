@@ -1,0 +1,22 @@
+.container {
+    display: block;
+    min-width: 400px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+mat-card-header {
+    justify-content: center;
+}
+
+.carbohydrates {
+    padding-top: 1rem;
+}
+
+table {
+    width: 100%;
+}
+
+tr.mat-footer-row {
+    font-weight: bold;
+}

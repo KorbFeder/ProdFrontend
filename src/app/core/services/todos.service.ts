@@ -31,7 +31,6 @@ export class TodosService {
           tap((result: TodoInterface[]) => this.store.dispatch(LOAD({todos: result})))
         );
       } else {
-        const httpParams: HttpParams = new HttpParams();
         return this.api.get(`/todos/${id}`).pipe(
           tap((result: TodoInterface[]) => this.store.dispatch(LOADSINGLE({todo: result[0]})))
         );
