@@ -1,0 +1,21 @@
+<div class="mat-elevation-z4">
+  <mat-form-field>
+    <input matInput placeholder="Product Name" (keyup)="searchTerm$.next({name: $event.target.value, manufac: manufac.value})" #name>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Manufacturer" (keyup)="searchTerm$.next({name: name.value, manufac: $event.target.value})" #manufac>
+  </mat-form-field>
+
+  <mat-action-list *ngIf="results">
+    <button mat-list-item *ngFor="let result of results" (click)="foodChosen.emit(result)">
+      <div class="item-container">
+        <p>
+          {{result.Long_Desc}} 
+        </p>
+        <p *ngIf="result.ManufacName"> 
+          Manufacturer: {{result.ManufacName}}
+        </p> 
+      </div>
+    </button>
+  </mat-action-list>
+</div>

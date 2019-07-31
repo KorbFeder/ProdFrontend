@@ -6,12 +6,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatListModule, MatCardModule,
-   MatBottomSheetModule, MatSelectModule, MatFormFieldModule, MatInputModule, MatNativeDateModule, MatMenuModule, MatTableModule } from '@angular/material';
+   MatBottomSheetModule, MatSelectModule, MatFormFieldModule, MatInputModule, MatNativeDateModule, MatMenuModule, MatTableModule, MatStepperModule } from '@angular/material';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSnackBarModule, MatDialogModule } from '@angular/material';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { TodosComponent } from './pages/todos/todos.component';
 import { SettingsComponent } from './pages/settings/settings.component';
@@ -28,6 +28,9 @@ import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { DailyNutrOverviewComponent } from './components/daily-nutr-overview/daily-nutr-overview.component';
+import { MealsStepperComponent } from './components/meals-stepper/meals-stepper.component';
+import { SearchFoodComponent } from './components/search-food/search-food.component';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @NgModule({
   declarations: [
@@ -43,13 +46,17 @@ import { DailyNutrOverviewComponent } from './components/daily-nutr-overview/dai
     LoginComponent,
     RegisterComponent,
     ForgotPasswordComponent,
-    DailyNutrOverviewComponent
+    DailyNutrOverviewComponent,
+    MealsStepperComponent,
+    SearchFoodComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule,
 
     MatMenuModule,
     MatToolbarModule,
@@ -71,6 +78,9 @@ import { DailyNutrOverviewComponent } from './components/daily-nutr-overview/dai
     MatDialogModule,
     MatTooltipModule,
     MatTableModule,
+    MatStepperModule,
+    MatListModule,
+    ScrollingModule,
 
     StoreModule.forRoot({todos: reducer})
   ],

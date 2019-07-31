@@ -1,0 +1,14 @@
+mat-form-field {
+    margin: 1rem;
+}
+
+mat-action-list {
+    max-height: 400px;
+    overflow: auto;
+}
+
+.item-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
