@@ -9,12 +9,8 @@ export class FoodService {
 
   constructor(private api: ApiService) { }
 
-  public getDaily(date: Date = null) {
-    if (date) {
-      return this.api.get(`/daily/${date}`);
-    } else {
-      return this.api.get(`/daily`);
-    }
+  public getDaily(date: Date) {
+    return this.api.get(`/daily/${date}`);
   }
 
   public saveDaily(dailyNutr: DailyNutrientInterface) {

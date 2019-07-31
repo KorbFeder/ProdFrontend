@@ -1,3 +1,5 @@
+import { FoodInterface } from './food-interface';
+
 export interface DailyNutrientInterface {
     id?: number;
     dayNr: Date;
@@ -7,4 +9,5 @@ export interface DailyNutrientInterface {
     fat: number;
     carb: number;
     protein: number;
+    foods: FoodInterface[];
 }

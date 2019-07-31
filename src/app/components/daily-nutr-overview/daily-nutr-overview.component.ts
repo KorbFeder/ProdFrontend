@@ -1,35 +1,50 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { DailyNutrientInterface } from 'src/app/core/models/daily-nutrient-interface';
+import { MatTableDataSource } from '@angular/material';
 
 @Component({
   selector: 'app-daily-nutr-overview',
   templateUrl: './daily-nutr-overview.component.html',
   styleUrls: ['./daily-nutr-overview.component.scss']
 })
-export class DailyNutrOverviewComponent implements OnInit {
-  private carbsToday: number;
-  private proteinToday: number;
-  private fatToday: number;
-  public carbohydratesToday: number;
+export class DailyNutrOverviewComponent implements OnInit, OnChanges{
+  @Input()
+  public dailyNutr: DailyNutrientInterface;
 
-  private carbsGoal: number;
-  private proteinGoal: number;
-  private fatGoal: number;
+  public carbohydratesToday: number;
   public carbohydratesGoal: number;
 
   public displayedColumns: string[] = ['name', 'amount', 'goal', 'diff'];
-  public tableData;
+  public tableData = new MatTableDataSource<any>([]);
 
   public date: Date;
 
   constructor() {
-    this.tableData = [
-      {name: 'Carbs', amount: this.carbsToday, goal: this.carbsGoal, diff: this.carbsGoal - this.carbsToday},
-      {name: 'Protein', amount: this.proteinToday, goal: this.proteinGoal, diff: this.proteinGoal - this.proteinToday},
-      {name: 'Fat', amount: this.fatToday, goal: this.fatGoal, diff: this.fatGoal - this.fatToday},
-    ];
   }
 
   ngOnInit() {
-  }
+ }
 
+  ngOnChanges() {
+    this.tableData.data = [
+      {
+        name: 'Carbs',
+        amount: this.dailyNutr.carb,
+        goal: this.dailyNutr.carbGoal,
+        diff: this.dailyNutr.carbGoal - this.dailyNutr.carb
+      },
+      {
+        name: 'Protein',
+        amount: this.dailyNutr.protein,
+        goal: this.dailyNutr.proteinGoal,
+        diff: this.dailyNutr.proteinGoal - this.dailyNutr.protein
+      },
+      {
+        name: 'Fat',
+        amount: this.dailyNutr.fat,
+        goal: this.dailyNutr.fatGoal,
+        diff: this.dailyNutr.fatGoal - this.dailyNutr.fat
+      },
+    ];
+  }
 }
