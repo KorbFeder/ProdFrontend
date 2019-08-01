@@ -1,12 +1,12 @@
+<!--Gives a overview of the nutrients that sill have to be consumed today-->
 <app-daily-nutr-overview 
   [dailyNutr$]="dailyNutr$">
 </app-daily-nutr-overview>
 
+<!--The meals stepper that allows to step through the different meals.
+    Consists of the search-food-component and the display-food-component-->
 <app-meals-stepper 
   (deleteOwnFood)="ownFoodDeleted($event)"
   (foodChosen)="itemChosen($event)"
   [addedFood]="loadedFood">
 </app-meals-stepper>
-<!--
-<app-meals-stepper></app-meals-stepper>
--->

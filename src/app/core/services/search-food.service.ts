@@ -10,6 +10,12 @@ export class SearchFoodService {
 
   constructor(private api: ApiService) { }
 
+  /**
+   * This will init the observable for searching, after the observable gets returned
+   * someone can subscribe to it. It will emit the search results.
+   * 
+   * @param terms Observable
+   */
   public search(terms: Observable<{name: string, manufac: string}>) {
     return terms.pipe(
       debounceTime(400),
@@ -18,15 +24,26 @@ export class SearchFoodService {
     );
   }
 
+  /**
+   * The search http request, gets the foods from the food database.
+   * 
+   * @param name string
+   * @param manufac string
+   */
   public getFood(name: string, manufac: string = null) {
     let requestString = '';
-    if(manufac) {
+    if (manufac) {
       requestString = `/${manufac}`;
     }
     return this.api.get(`/nutr/food/${name}${requestString}`);
   }
 
-  public getNutr(NDB_No: number) {
+  /**
+   * The http request for the nutrients to get the nutrients for a given food identifier.
+   * 
+   * @param NDB_No string
+   */
+  public getNutr(NDB_No: string) {
     return this.api.get(`/nutr/nutr/${NDB_No}`);
   }
 }
