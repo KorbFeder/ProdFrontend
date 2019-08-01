@@ -11,25 +11,25 @@
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef>Type</th>
           <td mat-cell *matCellDef="let element">{{element.name}}</td>
-          <td mat-footer-cell *matFooterCellDef>Carbohydrates</td>
+          <td mat-footer-cell *matFooterCellDef>Calories</td>
         </ng-container>
 
         <ng-container matColumnDef="amount">
           <th mat-header-cell *matHeaderCellDef>Already Eaten</th>
           <td mat-cell *matCellDef="let element">{{element.amount}}</td>
-          <td mat-footer-cell *matFooterCellDef>{{carbohydratesToday}}</td>
+          <td mat-footer-cell *matFooterCellDef>{{caloriesToday}}</td>
         </ng-container>
 
         <ng-container matColumnDef="goal">
           <th mat-header-cell *matHeaderCellDef>Goal</th>
           <td mat-cell *matCellDef="let element">{{element.goal}}</td>
-          <td mat-footer-cell *matFooterCellDef>{{carbohydratesGoal}}</td>
+          <td mat-footer-cell *matFooterCellDef>{{caloriesGoal}}</td>
         </ng-container>
 
         <ng-container matColumnDef="diff">
           <th mat-header-cell *matHeaderCellDef>Amount Left</th>
           <td mat-cell *matCellDef="let element">{{element.diff}}</td>
-          <td mat-footer-cell *matFooterCellDef>{{carbohydratesGoal - carbohydratesToday}}</td>
+          <td mat-footer-cell *matFooterCellDef>{{caloriesGoal - caloriesToday}}</td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

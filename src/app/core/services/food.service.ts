@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
 import { DailyNutrientInterface } from '../models/daily-nutrient-interface';
+import { FoodInterface } from '../models/food-interface';
+import { HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -21,12 +23,13 @@ export class FoodService {
     return this.api.put('/daily', dailyNutr);
   }
 
-  public getOwnFood(name: string = null) {
-    if (name) {
-      return this.api.get(`/ownfood/${name}`);
-    } else {
-      return this.api.get(`/ownfood`);
-    }
+  public getOwnFood(day_id: string) {
+    const httpParams = new HttpParams().append('day_id', day_id);
+    return this.api.get(`/ownfood/`, httpParams);
+  }
+
+  public saveOwnFood(food: FoodInterface) {
+    return this.api.post('/ownfood', food);
   }
 
   public getFood(name: string, manufac: string = null) {

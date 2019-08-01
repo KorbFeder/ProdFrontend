@@ -1,0 +1,25 @@
+<div class="mat-elevation-z4">
+  <mat-action-list *ngIf="items && !showDetails">
+    <ng-container *ngFor="let item of items">
+      <button mat-list-item *ngIf="item.meal === meal" (click)="itemChosen(item)">
+        <div class="item-container">
+          <p>
+            {{item.Long_Desc}} 
+          </p>
+          <p *ngIf="item.ManufacName"> 
+            Manufacturer: {{item.ManufacName}}
+          </p> 
+        </div>
+      </button>
+    </ng-container>
+    <div *ngIf="showDetails && targetItem">
+      <p>{{targetItem.Long_Desc}}</p>
+      <h5>Per 100g: </h5>
+      <p>Fat: {{targetItem.fat}} g</p>
+      <p>Protein: {{targetItem.protein}} g</p>
+      <p>Carbs: {{targetItem.carb}} g</p>
+      <button mat-button>DELETE</button>
+      <button mat-button>EDIT</button>
+    </div>
+  </mat-action-list>
+</div>

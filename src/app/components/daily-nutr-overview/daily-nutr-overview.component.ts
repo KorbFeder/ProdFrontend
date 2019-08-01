@@ -11,8 +11,8 @@ export class DailyNutrOverviewComponent implements OnInit, OnChanges{
   @Input()
   public dailyNutr: DailyNutrientInterface;
 
-  public carbohydratesToday: number;
-  public carbohydratesGoal: number;
+  public caloriesToday: number;
+  public caloriesGoal: number;
 
   public displayedColumns: string[] = ['name', 'amount', 'goal', 'diff'];
   public tableData = new MatTableDataSource<any>([]);
@@ -46,5 +46,7 @@ export class DailyNutrOverviewComponent implements OnInit, OnChanges{
         diff: this.dailyNutr.fatGoal - this.dailyNutr.fat
       },
     ];
+    this.caloriesToday = 4 * this.dailyNutr.carb + this.dailyNutr.fat * 9 + this.dailyNutr.protein * 4;
+    this.caloriesGoal = 4 * this.dailyNutr.carbGoal + this.dailyNutr.fatGoal * 9 + this.dailyNutr.proteinGoal * 4;
   }
 }

@@ -31,6 +31,7 @@ import { DailyNutrOverviewComponent } from './components/daily-nutr-overview/dai
 import { MealsStepperComponent } from './components/meals-stepper/meals-stepper.component';
 import { SearchFoodComponent } from './components/search-food/search-food.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { DisplayFoodComponent } from './components/display-food/display-food.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     ForgotPasswordComponent,
     DailyNutrOverviewComponent,
     MealsStepperComponent,
-    SearchFoodComponent
+    SearchFoodComponent,
+    DisplayFoodComponent
   ],
   imports: [
     BrowserModule,

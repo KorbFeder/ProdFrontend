@@ -2,7 +2,10 @@
   [dailyNutr]="dailyNutr">
 </app-daily-nutr-overview>
 
-<app-meals-stepper></app-meals-stepper>
+<app-meals-stepper 
+  (foodChosen)="itemChosen($event)"
+  [addedFood]="loadedFood">
+</app-meals-stepper>
 <!--
 <app-meals-stepper></app-meals-stepper>
 -->

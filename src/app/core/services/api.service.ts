@@ -16,8 +16,8 @@ export class ApiService {
    *
    * @param path api path, that gets appended to /api
    */
-  public get(path: string): Observable<any> {
-    return this.http.get(`${environment.api_url}${path}`);
+  public get(path: string, httpParams: HttpParams = null): Observable<any> {
+    return this.http.get(`${environment.api_url}${path}`, {params: httpParams});
   }
 
   /**

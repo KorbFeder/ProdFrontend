@@ -1,7 +1,8 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { FoodInterface } from 'src/app/core/models/food-interface';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { SearchFoodService } from 'src/app/core/services/search-food.service';
+import { NutrientInterface } from 'src/app/core/models/nutrient-interface';
 
 @Component({
   selector: 'app-search-food',
@@ -10,7 +11,12 @@ import { SearchFoodService } from 'src/app/core/services/search-food.service';
 })
 export class SearchFoodComponent implements OnInit {
   @Output()
-  foodChosen: EventEmitter<FoodInterface> = new EventEmitter();
+  public foodChosen: EventEmitter<FoodInterface> = new EventEmitter();
+  public NutrientData$: Observable<NutrientInterface[]>;
+  private currentFood: FoodInterface;
+  public weight = '';
+
+  public addButtonDisabled = true;
 
   public results: FoodInterface[];
   public searchTerm$ = new Subject<{name: string, manufac: string}>();
@@ -18,8 +24,37 @@ export class SearchFoodComponent implements OnInit {
   constructor(private search: SearchFoodService) {
     this.search.search(this.searchTerm$).subscribe((result) => {
       this.results = result;
-      console.log({result});
+      this.addButtonDisabled = true;
     });
+  }
+
+  public itemChosen(result: FoodInterface) {
+    this.addButtonDisabled = false;
+    this.currentFood = result;
+    this.results = this.results.filter(res => res === result);
+    this.NutrientData$ = this.search.getNutr(result.NDB_No);
+    this.NutrientData$.subscribe((rows) => {
+      for (let row of rows) {
+        if (row.NutrDesc.includes('Protein')) {
+          this.currentFood.protein = row.Nutr_val;
+        }
+        if (row.NutrDesc.includes('Total lipid')) {
+          this.currentFood.fat = row.Nutr_val;
+        }
+        if (row.NutrDesc.includes('Carbohydrate')) {
+          this.currentFood.carb = row.Nutr_val;
+        }
+      }
+    });
+  }
+
+  foodAdded() {
+    this.currentFood.weight = Number(this.weight);
+    this.foodChosen.emit(this.currentFood);
+
+    // reset
+    this.results = null;
+    this.addButtonDisabled = true;
   }
 
   ngOnInit() {
