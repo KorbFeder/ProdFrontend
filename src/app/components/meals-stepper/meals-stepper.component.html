@@ -4,6 +4,7 @@
     <form [formGroup]="firstFormGroup">
       <ng-template matStepLabel>{{meal}}</ng-template>
         <app-display-food 
+          (deleteEvent)="deleteOwnFood.emit($event)"
           [meal]="meal"
           [items]="addedFood">
         </app-display-food>

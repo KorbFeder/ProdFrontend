@@ -5,7 +5,7 @@ import { FoodInterface } from 'src/app/core/models/food-interface';
 import { BehaviorSubject } from 'rxjs';
 
 
-
+// todo -> ngrx store
 @Component({
   selector: 'app-food',
   templateUrl: './food.component.html',
@@ -40,12 +40,19 @@ export class FoodComponent implements OnInit {
     food.day_id = this.dailyNutr$.value.id;
     this.foodService.saveOwnFood(food).subscribe((result) => {
       //this.dailyNutr.foods.push(result);
-      const newDaily = {...this.dailyNutr$.value};
-      newDaily.foods.push(result[0]);
-      this.dailyNutr$.next(newDaily);
+      this.sendNewDaily([...this.dailyNutr$.value.foods, ...result]);
       this.foodService.getOwnFood(this.dailyNutr$.value.id.toString()).subscribe((result) => {
         this.loadedFood = result;
       });
+    });
+  }
+
+  public ownFoodDeleted(food: FoodInterface) {
+    this.foodService.deleteOwnFood(food.id).subscribe((result) => {
+      this.foodService.getOwnFood(this.dailyNutr$.value.id.toString()).subscribe((res) => {
+        this.loadedFood = res;
+        this.sendNewDaily(res);
+     });
     });
   }
 
@@ -61,5 +68,11 @@ export class FoodComponent implements OnInit {
       foods: []
     };
     return  newDailyNutr;
+  }
+
+  private sendNewDaily(foods) {
+    const newDaily = {...this.dailyNutr$.value};
+    newDaily.foods = foods;
+    this.dailyNutr$.next(newDaily);
   }
 }

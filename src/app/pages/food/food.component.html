@@ -3,6 +3,7 @@
 </app-daily-nutr-overview>
 
 <app-meals-stepper 
+  (deleteOwnFood)="ownFoodDeleted($event)"
   (foodChosen)="itemChosen($event)"
   [addedFood]="loadedFood">
 </app-meals-stepper>

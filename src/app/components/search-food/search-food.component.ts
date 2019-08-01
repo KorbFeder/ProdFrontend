@@ -48,11 +48,16 @@ export class SearchFoodComponent implements OnInit {
     });
   }
 
-  foodAdded() {
+  public foodAdded() {
     this.currentFood.weight = Number(this.weight);
     this.foodChosen.emit(this.currentFood);
 
     // reset
+    this.results = null;
+    this.addButtonDisabled = true;
+  }
+
+  public reset() {
     this.results = null;
     this.addButtonDisabled = true;
   }

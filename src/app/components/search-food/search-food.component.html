@@ -18,14 +18,17 @@
         </p> 
       </div>
     </button>
-    <div *ngIf="!addButtonDisabled">
+    <div class="details" *ngIf="!addButtonDisabled">
       <h5>Per 100g: </h5>
       <div *ngFor="let nutr of (NutrientData$ | async)">
         <p>{{nutr.NutrDesc}} {{nutr.Nutr_val}} {{nutr.Units}}</p>
       </div>
     </div>
   </mat-action-list>
-  <button mat-raised-button color="primary" [disabled]="addButtonDisabled" (click)="foodAdded()">Add Meal</button>
+  <div class="addButton">
+    <button mat-raised-button color="primary" [disabled]="addButtonDisabled" (click)="foodAdded(); name.value = ''; manufac.value = '';">Add Meal</button>
+    <button mat-raised-button color="primary" (click)="name.value = ''; manufac.value = ''; reset()">Reset Search</button>
+  </div>
   <mat-form-field *ngIf="!addButtonDisabled">
     <input matInput placeholder="Weight in g" [(ngModel)]="weight">
   </mat-form-field>

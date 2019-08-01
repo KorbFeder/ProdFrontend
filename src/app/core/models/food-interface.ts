@@ -1,6 +1,6 @@
 export interface FoodInterface {
-    id?: number;
-    NDB_No?: number;
+    id?: string;
+    NDB_No?: string;
 
     Long_Desc: string;
     Shrt_Desc: string;

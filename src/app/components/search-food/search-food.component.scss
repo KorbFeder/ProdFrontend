@@ -21,3 +21,16 @@ mat-action-list {
 .container {
     margin-top: 1rem;
 }
+
+.addButton {
+    display: block;
+    padding: 1rem;
+
+    button + button {
+        margin-left: 1rem;
+    }   
+}
+
+.details {
+    padding-left: 1rem;
+}

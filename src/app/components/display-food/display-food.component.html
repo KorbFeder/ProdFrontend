@@ -16,14 +16,16 @@
       </ng-container>
     </ng-container>
     <div class="details" *ngIf="showDetails === true">
-      <button (click)="showDetails=false"><p class="label-button">{{targetItem?.Long_Desc}}</p></button>
+      <button (click)="showDetails=false; targetItem=null"><p class="label-button">{{targetItem?.Long_Desc}}</p></button>
       <h5>Weight: {{weight()}}</h5>
       <p>Fat: {{calcWithWeight(targetItem.fat)}} g</p>
       <p>Protein: {{calcWithWeight(targetItem.protein)}} g</p>
       <p>Carbs: {{calcWithWeight(targetItem.carb)}} g</p>
-      <button mat-button>DELETE</button>
-      <button mat-button>EDIT</button>
-      <button mat-button (click)="showDetails=false">BACK</button>
+      <div class="bottom-button">
+        <button mat-button (click)="deleteEvent.emit(targetItem); showDetails=false; targetItem=null">DELETE</button>
+        <button mat-button [disabled]="true">EDIT</button>
+        <button mat-button (click)="showDetails=false; targetItem=null">BACK</button>
+      </div>
     </div>
   </mat-action-list>
 </div>

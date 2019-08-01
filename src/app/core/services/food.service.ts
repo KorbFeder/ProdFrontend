@@ -32,6 +32,10 @@ export class FoodService {
     return this.api.post('/ownfood', food);
   }
 
+  public deleteOwnFood(id: string) {
+    return this.api.delete(`/ownfood/${id}`);
+  }
+
   public getFood(name: string, manufac: string = null) {
     if(manufac) {
       return this.api.get(`/nutr/food/${name}/${manufac}`);

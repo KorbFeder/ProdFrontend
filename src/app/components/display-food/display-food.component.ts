@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { FoodInterface } from 'src/app/core/models/food-interface';
 
 @Component({
@@ -6,12 +6,16 @@ import { FoodInterface } from 'src/app/core/models/food-interface';
   templateUrl: './display-food.component.html',
   styleUrls: ['./display-food.component.scss']
 })
-export class DisplayFoodComponent implements OnInit {
+export class DisplayFoodComponent implements OnInit, OnChanges {
+
   @Input()
   items: FoodInterface[];
 
   @Input()
   meal: string;
+
+  @Output()
+  deleteEvent: EventEmitter<FoodInterface> = new EventEmitter();
 
   public showDetails = false;
   public targetItem: FoodInterface = null;
@@ -19,6 +23,10 @@ export class DisplayFoodComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes);
   }
 
   public itemChosen(item: FoodInterface) {
