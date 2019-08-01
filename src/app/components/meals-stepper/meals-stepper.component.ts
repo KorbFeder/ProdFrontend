@@ -10,7 +10,7 @@ import { FoodInterface } from 'src/app/core/models/food-interface';
 export class MealsStepperComponent implements OnInit {
   @Output()
   public foodChosen: EventEmitter<FoodInterface> = new EventEmitter();
-  
+
   @Input()
   public addedFood: FoodInterface[];
 

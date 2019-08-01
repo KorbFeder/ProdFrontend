@@ -1,5 +1,5 @@
-<div class="mat-elevation-z4">
-  <h4>Add a Meal:</h4>
+<div class="mat-elevation-z4 container">
+  <h4 class="add-meal-headline">Add a Meal:</h4>
   <mat-form-field>
     <input matInput placeholder="Product Name" (keyup)="searchTerm$.next({name: $event.target.value, manufac: manufac.value})" #name>
   </mat-form-field>

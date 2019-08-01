@@ -1,25 +1,29 @@
 <div class="mat-elevation-z4">
-  <mat-action-list *ngIf="items && !showDetails">
-    <ng-container *ngFor="let item of items">
-      <button mat-list-item *ngIf="item.meal === meal" (click)="itemChosen(item)">
-        <div class="item-container">
-          <p>
-            {{item.Long_Desc}} 
-          </p>
-          <p *ngIf="item.ManufacName"> 
-            Manufacturer: {{item.ManufacName}}
-          </p> 
-        </div>
-      </button>
+  <h4>Already eaten meals:</h4>
+  <mat-action-list>
+    <ng-container *ngIf="items && !showDetails">
+      <ng-container *ngFor="let item of items">
+        <button mat-list-item *ngIf="item.meal === meal" (click)="itemChosen(item)">
+          <div class="item-container">
+            <p>
+              {{item.Long_Desc}} 
+            </p>
+            <p *ngIf="item.ManufacName"> 
+              Manufacturer: {{item.ManufacName}}
+            </p> 
+          </div>
+        </button>
+      </ng-container>
     </ng-container>
-    <div *ngIf="showDetails && targetItem">
-      <p>{{targetItem.Long_Desc}}</p>
-      <h5>Per 100g: </h5>
-      <p>Fat: {{targetItem.fat}} g</p>
-      <p>Protein: {{targetItem.protein}} g</p>
-      <p>Carbs: {{targetItem.carb}} g</p>
+    <div class="details" *ngIf="showDetails === true">
+      <button (click)="showDetails=false"><p class="label-button">{{targetItem?.Long_Desc}}</p></button>
+      <h5>Weight: {{weight()}}</h5>
+      <p>Fat: {{calcWithWeight(targetItem.fat)}} g</p>
+      <p>Protein: {{calcWithWeight(targetItem.protein)}} g</p>
+      <p>Carbs: {{calcWithWeight(targetItem.carb)}} g</p>
       <button mat-button>DELETE</button>
       <button mat-button>EDIT</button>
+      <button mat-button (click)="showDetails=false">BACK</button>
     </div>
   </mat-action-list>
 </div>

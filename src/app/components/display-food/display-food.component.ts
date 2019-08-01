@@ -25,4 +25,23 @@ export class DisplayFoodComponent implements OnInit {
     this.showDetails = true;
     this.targetItem = item;
   }
+
+  private weight() {
+    if (this.targetItem) {
+      if (this.targetItem.weight === 0 || !this.targetItem.weight) {
+        return 100;
+      } else {
+        return this.targetItem.weight;
+      }
+    } else {
+      return 100;
+    }
+  }
+
+  private calcWithWeight(num: number) {
+    if (this.weight() !== 100) {
+      num = num / (100 / this.weight());
+    }
+    return num;
+  }
 }
