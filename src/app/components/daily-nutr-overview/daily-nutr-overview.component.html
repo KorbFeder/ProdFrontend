@@ -37,5 +37,8 @@
         <tr mat-footer-row *matFooterRowDef="displayedColumns; sticky: true"></tr>
       </table>
     </mat-card-content>
+    <mat-card-actions>
+      <button mat-button (click)="openChangeGoalDialog()">Change Goal</button>
+    </mat-card-actions>
   </mat-card>
 </div>

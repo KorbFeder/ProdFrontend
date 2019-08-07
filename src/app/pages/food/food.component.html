@@ -1,5 +1,6 @@
 <!--Gives a overview of the nutrients that sill have to be consumed today-->
 <app-daily-nutr-overview 
+  (dailyGoalChanged)="dailyGoalUpdated($event)"
   [dailyNutr$]="dailyNutr$">
 </app-daily-nutr-overview>
 

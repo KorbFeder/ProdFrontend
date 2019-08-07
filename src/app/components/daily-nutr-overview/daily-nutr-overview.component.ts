@@ -1,9 +1,10 @@
-import { Component, OnInit, Input, OnChanges, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { DailyNutrientInterface } from 'src/app/core/models/daily-nutrient-interface';
-import { MatTableDataSource } from '@angular/material';
+import { MatTableDataSource, MatDialog } from '@angular/material';
 import { FoodInterface } from 'src/app/core/models/food-interface';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { ChangeDailyGoalComponent } from '../change-daily-goal/change-daily-goal.component';
 
 @Component({
   selector: 'app-daily-nutr-overview',
@@ -16,6 +17,9 @@ export class DailyNutrOverviewComponent implements OnInit, OnDestroy, OnChanges 
   public dailyNutr$: Observable<DailyNutrientInterface>;
   public unsub$: Subject<boolean> = new Subject();
 
+  @Output()
+  public dailyGoalChanged: EventEmitter<[{name: string, amount: number, goal: number, diff: number}]> = new EventEmitter();
+
   /** The calculated calories for the view */
   public caloriesToday: number;
   public caloriesGoal: number;
@@ -25,7 +29,7 @@ export class DailyNutrOverviewComponent implements OnInit, OnDestroy, OnChanges 
 
   public date: Date;
 
-  constructor() {
+  constructor(private matDialog: MatDialog) {
   }
 
   /**
@@ -93,6 +97,18 @@ export class DailyNutrOverviewComponent implements OnInit, OnDestroy, OnChanges 
       protein += food.protein;
     }
     return {carb, fat, protein};
+  }
+
+  public openChangeGoalDialog() {
+    const dialogRef = this.matDialog.open(ChangeDailyGoalComponent, {
+      width: '80%',
+      maxWidth: '30rem',
+      data: this.tableData.data
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log({result});
+      this.dailyGoalChanged.emit(result);
+    });
   }
 
   ngOnDestroy() {

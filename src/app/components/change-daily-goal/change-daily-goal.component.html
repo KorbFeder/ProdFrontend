@@ -1,0 +1,15 @@
+<form #form="ngForm">
+  <h3>Change Goals</h3>
+  <div class="input-form">
+    <ng-container *ngFor="let row of data; let i = index"> 
+      <mat-form-field>
+        <input type="number" matInput placeholder="{{row.name}} Goal" [(ngModel)]="data[i].goal" name="{{row.name}}Goal" ngModel required>
+        <mat-error *ngIf="row.goal === ''">
+          Please enter a goal for {{row.name}}
+        </mat-error>
+      </mat-form-field>
+    </ng-container>
+  </div>
+  <button type="submit" [disabled]="!form.valid" [mat-dialog-close]="data" mat-raised-button color="primary">Save</button>
+  <button type="button" mat-raised-button color="primary" (click)="dialogRef.close()">Cancel</button> 
+</form>

@@ -32,6 +32,7 @@ import { MealsStepperComponent } from './components/meals-stepper/meals-stepper.
 import { SearchFoodComponent } from './components/search-food/search-food.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { DisplayFoodComponent } from './components/display-food/display-food.component';
+import { ChangeDailyGoalComponent } from './components/change-daily-goal/change-daily-goal.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { DisplayFoodComponent } from './components/display-food/display-food.com
     DailyNutrOverviewComponent,
     MealsStepperComponent,
     SearchFoodComponent,
-    DisplayFoodComponent
+    DisplayFoodComponent,
+    ChangeDailyGoalComponent
   ],
   imports: [
     BrowserModule,
@@ -86,7 +88,7 @@ import { DisplayFoodComponent } from './components/display-food/display-food.com
 
     StoreModule.forRoot({todos: reducer})
   ],
-  entryComponents: [AddTodoComponent, DeleteTodoComponent],
+  entryComponents: [AddTodoComponent, DeleteTodoComponent, ChangeDailyGoalComponent],
   providers: [
     MatDatepickerModule,
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}

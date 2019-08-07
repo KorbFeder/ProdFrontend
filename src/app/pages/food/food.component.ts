@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FoodService } from 'src/app/core/services/food.service';
 import { DailyNutrientInterface } from 'src/app/core/models/daily-nutrient-interface';
 import { FoodInterface } from 'src/app/core/models/food-interface';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { mergeMap, tap, map } from 'rxjs/operators';
 
 
 // todo -> ngrx store
@@ -16,7 +17,7 @@ export class FoodComponent implements OnInit {
   public loadedFood: FoodInterface[];
 
   /** Subject to inform the Daily-Nutrient component for updates */
-  public dailyNutr$ = new BehaviorSubject<DailyNutrientInterface>(this.buildNewDailyNutrient());
+  public dailyNutr$ = new BehaviorSubject<DailyNutrientInterface>(this.buildNewDailyNutrient(new Date()));
 
   constructor(private foodService: FoodService) { }
 
@@ -31,12 +32,18 @@ export class FoodComponent implements OnInit {
         });
       // if there no DailyNutrient for today create a new one
       } else {
-        this.foodService.saveDaily(this.buildNewDailyNutrient()).subscribe((result) => {
-          this.dailyNutr$.next(result);
-          this.foodService.getOwnFood(result.id.toString()).subscribe((result) => {
-            this.loadedFood = result;
-          });
-        });
+        this.getSavedDailyNutrient().pipe(
+          mergeMap((saved) => {
+            const daily = this.buildNewDailyNutrient(new Date());
+            daily.fatGoal = saved.fatGoal;
+            daily.carbGoal = saved.carbGoal;
+            daily.proteinGoal = saved.proteinGoal;
+            return this.foodService.saveDaily(daily);
+          }),
+          tap((saved: DailyNutrientInterface) => this.dailyNutr$.next(saved)),
+          mergeMap((saved: DailyNutrientInterface) => this.foodService.getOwnFood(saved.id.toString())),
+          tap((food: FoodInterface[]) => this.loadedFood = food)
+        ).subscribe();
       }
     });
   }
@@ -81,9 +88,9 @@ export class FoodComponent implements OnInit {
    * Builds a default daily nutrient object if, which will be overwritten if one could be loaded from the
    * database.
    */
-  private buildNewDailyNutrient(): DailyNutrientInterface {
+  private buildNewDailyNutrient(date: Date): DailyNutrientInterface {
     const newDailyNutr: DailyNutrientInterface = {
-      dayNr: new Date(),
+      dayNr: date,
       fatGoal: 100,
       carbGoal: 300,
       proteinGoal: 200,
@@ -92,12 +99,62 @@ export class FoodComponent implements OnInit {
       protein: 0,
       foods: []
     };
+
     return  newDailyNutr;
+  }
+  private dailyGoalUpdated(newGoal: [{name: string, amount: number, goal: number, diff: number}]) {
+    this.getSavedDailyNutrient().pipe(
+      map((result) => {
+        for (let goal of newGoal) {
+          switch (goal.name) {
+            case 'Fat':
+              result.fatGoal = goal.goal;
+              break;
+            case 'Protein':
+              result.proteinGoal = goal.goal;
+              break;
+            case 'Carbs':
+              result.carbGoal = goal.goal;
+          }
+        }
+        return result;
+      }),
+      mergeMap((result) => this.foodService.updateDaily(result)),
+      mergeMap(() => this.foodService.getDaily(new Date())),
+      mergeMap((result) => {
+        for (let goal of newGoal) {
+          switch (goal.name) {
+            case 'Fat':
+              result.fatGoal = goal.goal;
+              break;
+            case 'Protein':
+              result.proteinGoal = goal.goal;
+              break;
+            case 'Carbs':
+              result.carbGoal = goal.goal;
+          }
+        }
+        return this.foodService.updateDaily(result);
+      })
+
+    ).subscribe();
+  }
+
+  private getSavedDailyNutrient(): Observable<DailyNutrientInterface> {
+    const date = new Date(1999);
+    return this.foodService.getDaily(date).pipe(
+      mergeMap((result) => {
+      if (result === null) {
+        return this.foodService.saveDaily(this.buildNewDailyNutrient(date));
+      } else {
+        return of(result);
+      }}),
+    );
   }
 
   /**
    * Helper function to refresh / sends new Data to the daily nutrient component.
-   * 
+   *
    * @param foods FoodInterface[]
    */
   private sendNewDaily(foods: FoodInterface[]) {

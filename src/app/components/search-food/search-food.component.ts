@@ -70,7 +70,7 @@ export class SearchFoodComponent implements OnInit {
     this.reset();
  }
 
-  /** 
+  /**
    * function that gets triggered by the reset button
    */
   public reset() {
