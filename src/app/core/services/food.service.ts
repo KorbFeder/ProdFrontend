@@ -50,6 +50,16 @@ export class FoodService {
   }
 
   /**
+   * Searches for a food that has a similar name
+   * 
+   * @param name name of the food
+   */
+  public getOwnFoodByName(name: string) {
+    const httpParams = new HttpParams().append('name', name);
+    return this.api.get(`/ownfood/`, httpParams);
+  }
+
+  /**
    * Saves the food in the database. 
    * 
    * @param food food interface

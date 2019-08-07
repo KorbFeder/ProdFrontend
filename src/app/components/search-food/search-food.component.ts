@@ -3,6 +3,8 @@ import { FoodInterface } from 'src/app/core/models/food-interface';
 import { Subject, Observable } from 'rxjs';
 import { SearchFoodService } from 'src/app/core/services/search-food.service';
 import { NutrientInterface } from 'src/app/core/models/nutrient-interface';
+import { MatDialog } from '@angular/material';
+import { CustomFoodComponent } from '../custom-food/custom-food.component';
 
 @Component({
   selector: 'app-search-food',
@@ -27,7 +29,8 @@ export class SearchFoodComponent implements OnInit {
   /** The subject thats sends the search reqeust to the search.service */
   public searchTerm$ = new Subject<{name: string, manufac: string}>();
 
-  constructor(private search: SearchFoodService) {
+  constructor(private search: SearchFoodService,
+              private matDialog: MatDialog) {
     /** Search after the term as soon as it gets entered in the component. It emits the values to the search.service */
     this.search.search(this.searchTerm$).subscribe((result) => {
       this.results = result;
@@ -76,6 +79,18 @@ export class SearchFoodComponent implements OnInit {
   public reset() {
     this.results = null;
     this.addButtonDisabled = true;
+  }
+
+  public createCustomMeal() {
+    const dialogRef = this.matDialog.open(CustomFoodComponent, {
+      width: '80%',
+      maxWidth: '30rem',
+      data: {Long_Desc: '', ManufacName: '', weight: '', fat: '', carb: '', protein: ''}
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      this.foodChosen.emit(result);
+    });
+
   }
 
   ngOnInit() {

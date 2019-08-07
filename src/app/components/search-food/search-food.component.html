@@ -27,6 +27,7 @@
   </mat-action-list>
   <div class="addButton">
     <button mat-raised-button color="primary" [disabled]="addButtonDisabled" (click)="foodAdded(); name.value = ''; manufac.value = '';">Add Meal</button>
+    <button mat-raised-button color="primary" (click)="createCustomMeal()">Custom Meal</button>
     <button mat-raised-button color="primary" (click)="name.value = ''; manufac.value = ''; reset()">Reset Search</button>
   </div>
   <mat-form-field *ngIf="!addButtonDisabled">

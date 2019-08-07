@@ -1,0 +1,54 @@
+<form #form="ngForm">
+  <h3>Custom Food</h3>
+  <mat-form-field>
+    <input matInput placeholder="Food Name" [(ngModel)]="data.Long_Desc" #name="ngModel" name="Long_Desc" required>
+    <mat-error *ngIf="name.hasError('required')">
+      Please enter a Food Name
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Manufacturer" [(ngModel)]="data.ManufacName" name="ManufacName">
+  </mat-form-field>
+  <mat-form-field>
+    <input type="number" matInput placeholder="Weight in grams" required [(ngModel)]="data.weight" #weight="ngModel" name="weight">
+    <mat-error *ngIf="weight.hasError('required')">
+      Please enter a wight in grams
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input type="number" matInput placeholder="Fat in grams" required [(ngModel)]="data.fat" #fat="ngModel" name="fat">
+    <mat-error>
+      Please enter a Fat value in grams
+    </mat-error>
+  </mat-form-field>
+   <mat-form-field>
+    <input type="number" matInput placeholder="Protein in grams" required [(ngModel)]="data.protein" #protein="ngModel" name="protein">
+    <mat-error>
+      Please enter a Protein value in grams
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input type="number" matInput placeholder="Carb" required [(ngModel)]="data.carb" #carb="ngModel" name="carb">
+    <mat-error>
+      Please enter a Carb value in grams
+    </mat-error>
+  </mat-form-field>
+  <button type="submit" class="submit-button" [disabled]="!form.valid" [mat-dialog-close]="data" mat-raised-button color="primary">Add Meal</button>
+</form>
+
+<h4>Search for Custom Food</h4>
+<div class="search">
+  <mat-form-field>
+    <input type="text" name="food" matInput placeholder="Custom Food Name" #search>
+  </mat-form-field>
+  <div class="button-group">
+    <button type="button" mat-raised-button color="primary" (click)="searchForFood(search.value)">Search</button>
+    <button type="button" mat-raised-button color="primary" (click)="oldFood = null; form.reset()">Reset</button>
+  </div>
+</div>
+<mat-action-list *ngIf="oldFood">
+  <button mat-list-item *ngFor="let food of oldFood" (click)="foodChosen(food)">{{food.Long_Desc}}</button>
+</mat-action-list>
+
+<button type="button" mat-raised-button color="primary" (click)="dialogRef.close()">Close</button>
+
