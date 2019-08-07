@@ -102,6 +102,13 @@ export class FoodComponent implements OnInit {
 
     return  newDailyNutr;
   }
+
+  /**
+   * This function gets called as a result when the Change Goal button gets clicked. This function
+   * alters the database with the new values for the daily goals.
+   * 
+   * @param newGoal Array of data which got send from the dialog component holding the altered table
+   */
   private dailyGoalUpdated(newGoal: [{name: string, amount: number, goal: number, diff: number}]) {
     this.getSavedDailyNutrient().pipe(
       map((result) => {
@@ -140,6 +147,10 @@ export class FoodComponent implements OnInit {
     ).subscribe();
   }
 
+  /**
+   * This returns the saved default Nutrients values if there is none in the database, than
+   * it will create one.
+   */
   private getSavedDailyNutrient(): Observable<DailyNutrientInterface> {
     const date = new Date(1999);
     return this.foodService.getDaily(date).pipe(
