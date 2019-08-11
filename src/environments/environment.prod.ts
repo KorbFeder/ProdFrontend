@@ -1,3 +1,5 @@
 export const environment = {
-  production: true
+  production: true,
+  api_url: 'http://localhost/api',
+  file_location: '/api/todos/file'
 };

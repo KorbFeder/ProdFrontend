@@ -109,7 +109,7 @@ export class FoodComponent implements OnInit {
    * 
    * @param newGoal Array of data which got send from the dialog component holding the altered table
    */
-  private dailyGoalUpdated(newGoal: [{name: string, amount: number, goal: number, diff: number}]) {
+  public dailyGoalUpdated(newGoal: [{name: string, amount: number, goal: number, diff: number}]) {
     this.getSavedDailyNutrient().pipe(
       map((result) => {
         for (let goal of newGoal) {
