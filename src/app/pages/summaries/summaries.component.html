@@ -1,8 +1,13 @@
-  <div class="container" *ngFor="let folder of folders">
-      <a [routerLink]="['/summaries', folder]">
+<div class="container" *ngFor="let folder of folders">
+    <a [routerLink]="['/summaries', folder]">
       <div class="folder">
         <mat-icon [inline]="true">folder</mat-icon>
         <span>{{folder}}</span>
       </div>
-      </a>
-  </div>
+    </a>
+</div>
+
+<!-- Fab button to add more Folders -->
+<button mat-fab class="fab" (click)="addFolder()">
+  <mat-icon>add</mat-icon>
+</button>

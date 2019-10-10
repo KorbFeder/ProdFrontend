@@ -54,7 +54,7 @@ export class TodosComponent implements OnInit {
               return this.todoService.save(response.todo);
             })
           ).subscribe();
-        }else{
+        } else {
           this.todoService.save(response.todo).subscribe();
         }
       }

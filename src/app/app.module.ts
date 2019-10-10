@@ -36,6 +36,7 @@ import { ChangeDailyGoalComponent } from './components/change-daily-goal/change-
 import { CustomFoodComponent } from './components/custom-food/custom-food.component';
 import { SummariesComponent } from './pages/summaries/summaries.component';
 import { SummariesMainComponent } from './components/summaries-main/summaries-main.component';
+import { AddFolderComponent } from './components/add-folder/add-folder.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { SummariesMainComponent } from './components/summaries-main/summaries-ma
     CustomFoodComponent,
     SummariesComponent,
     SummariesMainComponent,
+    AddFolderComponent,
   ],
   imports: [
     BrowserModule,
@@ -94,7 +96,7 @@ import { SummariesMainComponent } from './components/summaries-main/summaries-ma
 
     StoreModule.forRoot({todos: reducer})
   ],
-  entryComponents: [AddTodoComponent, DeleteTodoComponent, ChangeDailyGoalComponent, CustomFoodComponent],
+  entryComponents: [AddTodoComponent, DeleteTodoComponent, ChangeDailyGoalComponent, CustomFoodComponent, AddFolderComponent],
   providers: [
     MatDatepickerModule,
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}

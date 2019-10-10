@@ -1,0 +1,13 @@
+<form class="form" #form="ngForm"(ngSubmit)="addFolder(form.value)">
+  <h1>{{headline}}</h1>
+  <!--The folder title-->
+  <mat-form-field>
+    <input matInput placeholder="Folder name" name="name" [ngModel]="folder?.name" ngModel #nameText="ngModel" required>
+    <mat-error *ngIf="nameText.hasError('required')">
+      Please enter the todo task
+    </mat-error>
+  </mat-form-field>
+  <!--The submit button-->
+  <button type="submit" class="submit-button" [disabled]="!form.valid" 
+    mat-raised-button color="primary">Save</button>
+</form>
