@@ -34,6 +34,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { DisplayFoodComponent } from './components/display-food/display-food.component';
 import { ChangeDailyGoalComponent } from './components/change-daily-goal/change-daily-goal.component';
 import { CustomFoodComponent } from './components/custom-food/custom-food.component';
+import { SummariesComponent } from './pages/summaries/summaries.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { CustomFoodComponent } from './components/custom-food/custom-food.compon
     SearchFoodComponent,
     DisplayFoodComponent,
     ChangeDailyGoalComponent,
-    CustomFoodComponent
+    CustomFoodComponent,
+    SummariesComponent
   ],
   imports: [
     BrowserModule,
