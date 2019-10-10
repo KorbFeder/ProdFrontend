@@ -35,6 +35,7 @@ import { DisplayFoodComponent } from './components/display-food/display-food.com
 import { ChangeDailyGoalComponent } from './components/change-daily-goal/change-daily-goal.component';
 import { CustomFoodComponent } from './components/custom-food/custom-food.component';
 import { SummariesComponent } from './pages/summaries/summaries.component';
+import { SummariesMainComponent } from './components/summaries-main/summaries-main.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { SummariesComponent } from './pages/summaries/summaries.component';
     DisplayFoodComponent,
     ChangeDailyGoalComponent,
     CustomFoodComponent,
-    SummariesComponent
+    SummariesComponent,
+    SummariesMainComponent,
   ],
   imports: [
     BrowserModule,

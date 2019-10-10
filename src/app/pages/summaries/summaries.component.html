@@ -1,3 +1,8 @@
-<p>
-  summaries works!
-</p>
+  <div class="container" *ngFor="let folder of folders">
+      <a [routerLink]="['/summaries', folder]">
+      <div class="folder">
+        <mat-icon [inline]="true">folder</mat-icon>
+        <span>{{folder}}</span>
+      </div>
+      </a>
+  </div>

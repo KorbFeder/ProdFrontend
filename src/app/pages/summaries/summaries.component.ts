@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./summaries.component.scss']
 })
 export class SummariesComponent implements OnInit {
+  folders: string[] = ["Hallo", "welt"];
 
   constructor() { }
 

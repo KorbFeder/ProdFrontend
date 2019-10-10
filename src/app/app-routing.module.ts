@@ -9,6 +9,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { LoginGuardService } from './core/guards/login-guard.service';
 import { SummariesComponent } from './pages/summaries/summaries.component';
+import { SummariesMainComponent } from './components/summaries-main/summaries-main.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -18,6 +19,7 @@ const routes: Routes = [
   {path: 'settings', component: SettingsComponent, canActivate: [LoginGuardService]},
   {path: 'fit', component: FitComponent, canActivate: [LoginGuardService]},
   {path: 'summaries', component: SummariesComponent, canActivate: [LoginGuardService]},
+  {path: 'summaries/:id', component: SummariesMainComponent, canActivate: [LoginGuardService]},
   {path: 'food', component: FoodComponent, canActivate: [LoginGuardService]},
   {path: '', redirectTo: 'todos', pathMatch: 'full'}
 ];
