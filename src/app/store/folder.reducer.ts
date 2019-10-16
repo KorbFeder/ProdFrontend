@@ -44,6 +44,6 @@ const folderReducer = createReducer(initialState,
     }),
 );
 
-export function reducer(currState: iStateFold | undefined, action: Action) {
+export function folderRed(currState: iStateFold | undefined, action: Action) {
     return folderReducer(currState, action);
 }

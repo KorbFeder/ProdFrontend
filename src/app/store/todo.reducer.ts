@@ -58,6 +58,6 @@ const todoReducer = createReducer(initialState,
     }),
 );
 
-export function reducer(currState: iState | undefined, action: Action) {
+export function todoRed(currState: iState | undefined, action: Action) {
     return todoReducer(currState, action);
 }

@@ -19,7 +19,9 @@ import { FitComponent } from './pages/fit/fit.component';
 import { AddTodoComponent } from './components/add-todo/add-todo.component';
 import { DeleteTodoComponent } from './components/delete-todo/delete-todo.component';
 import { StoreModule } from '@ngrx/store';
-import { reducer } from './store/todo.reducer';
+import { todoRed } from './store/todo.reducer';
+import { folderRed } from './store/folder.reducer';
+import { summariesRed } from './store/summaries.reducer';
 import { TodoCardComponent } from './components/todo-card/todo-card.component';
 import { SecureImageComponent } from './components/secure-image/secure-image.component';
 import { FoodComponent } from './pages/food/food.component';
@@ -95,7 +97,7 @@ import { EffectsModule } from '@ngrx/effects';
     MatListModule,
     ScrollingModule,
 
-    StoreModule.forRoot({todos: reducer}),
+    StoreModule.forRoot({todos: todoRed, folder: folderRed, summaries: summariesRed}),
   ],
   entryComponents: [AddTodoComponent, DeleteTodoComponent, ChangeDailyGoalComponent, CustomFoodComponent, AddFolderComponent],
   providers: [

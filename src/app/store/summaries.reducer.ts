@@ -45,7 +45,7 @@ const summariesReducer = createReducer(initialState,
     }),
 );
 
-export function reducer(currState: iStateSum | undefined, action: Action) {
+export function summariesRed(currState: iStateSum | undefined, action: Action) {
     return summariesReducer(currState, action);
 }
 
