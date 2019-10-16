@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatBottomSheet } from '@angular/material';
 import { AddFolderComponent } from 'src/app/components/add-folder/add-folder.component';
+import { FolderInterface } from 'src/app/core/models/folder-interface';
 
 @Component({
   selector: 'app-summaries',
@@ -8,7 +9,7 @@ import { AddFolderComponent } from 'src/app/components/add-folder/add-folder.com
   styleUrls: ['./summaries.component.scss']
 })
 export class SummariesComponent implements OnInit {
-  folders: string[] = ["Hallo", "welt"];
+  folders: FolderInterface;
 
   constructor(private bottomSheet: MatBottomSheet) { }
 

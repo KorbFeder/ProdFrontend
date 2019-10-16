@@ -7,12 +7,12 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./summaries-main.component.scss']
 })
 export class SummariesMainComponent implements OnInit {
-  public name: string;
+  public folderId: string;
 
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.name = this.route.snapshot.paramMap.get('id');
+    this.folderId = this.route.snapshot.paramMap.get('id');
   }
 
 }

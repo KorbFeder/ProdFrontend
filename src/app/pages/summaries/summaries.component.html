@@ -1,5 +1,5 @@
 <div class="container" *ngFor="let folder of folders">
-    <a [routerLink]="['/summaries', folder]">
+    <a [routerLink]="['/summaries', folder.id]">
       <div class="folder">
         <mat-icon [inline]="true">folder</mat-icon>
         <span>{{folder}}</span>

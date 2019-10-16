@@ -37,6 +37,7 @@ import { CustomFoodComponent } from './components/custom-food/custom-food.compon
 import { SummariesComponent } from './pages/summaries/summaries.component';
 import { SummariesMainComponent } from './components/summaries-main/summaries-main.component';
 import { AddFolderComponent } from './components/add-folder/add-folder.component';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   declarations: [
@@ -94,7 +95,7 @@ import { AddFolderComponent } from './components/add-folder/add-folder.component
     MatListModule,
     ScrollingModule,
 
-    StoreModule.forRoot({todos: reducer})
+    StoreModule.forRoot({todos: reducer}),
   ],
   entryComponents: [AddTodoComponent, DeleteTodoComponent, ChangeDailyGoalComponent, CustomFoodComponent, AddFolderComponent],
   providers: [
