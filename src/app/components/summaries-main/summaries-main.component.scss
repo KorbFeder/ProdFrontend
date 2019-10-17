@@ -1,0 +1,30 @@
+.grid {
+    display: grid;
+    grid-template-columns: 18% auto; 
+}
+
+.summariesList {
+    grid-column-start: 1;
+    grid-column-end: 2;
+}
+
+.addIcon {
+    margin-right: 0.5rem;
+}
+
+.addButton {
+    background-color: #EEEEEE88;
+    border-bottom: 0.5px solid lightgrey;
+}
+
+.summaries {
+    border-bottom: 0.5px solid lightgrey;
+}
+
+.enterName {
+    background-color: #EEEEEE88;
+    border-bottom: 0.5px solid lightgrey;
+}
+
+
+

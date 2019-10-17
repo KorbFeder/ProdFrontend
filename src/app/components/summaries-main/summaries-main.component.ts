@@ -6,6 +6,8 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ConnectionService } from 'src/app/core/services/connection.service';
 import { SummariesInterface } from 'src/app/core/models/summaries-interface';
+import { FolderInterface } from 'src/app/core/models/folder-interface';
+import { FolderService } from 'src/app/core/services/folder.service';
 
 @Component({
   selector: 'app-summaries-main',
@@ -15,10 +17,14 @@ import { SummariesInterface } from 'src/app/core/models/summaries-interface';
 export class SummariesMainComponent implements OnInit {
   public summaries$: Observable<SummariesInterface[]>;
   public folderId: string;
+  public folder: FolderInterface;
+
+  public enterName = false;
 
   constructor(
     private route: ActivatedRoute,
     private summariesService: SummeriesService,
+    private folderService: FolderService,
     private store: Store<{summaries: SummariesInterface[]}>,
     private connection: ConnectionService
   ) {
@@ -34,8 +40,24 @@ export class SummariesMainComponent implements OnInit {
     this.connection.connected$.subscribe((connected) => {
       if (connected) {
         this.summariesService.get(this.folderId).subscribe();
+        this.folderService.get(this.folderId).subscribe((res) => {
+          this.folder = res[0];
+        });
       }
     });
   }
 
+  public addSummary(name: string) {
+    const summary: SummariesInterface = {
+      folderId: +this.folderId,
+      topic: name,
+      content: '',
+    };
+    this.enterName = false;
+    this.summariesService.save(summary).subscribe(res => console.log(res));
+  }
+
+  public summaryChosen(summary: SummariesInterface) {
+
+  }
 }

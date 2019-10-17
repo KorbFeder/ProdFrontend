@@ -1,1 +1,23 @@
-<h1>{{name}}</h1>
+<h1>{{ folder?.name }}</h1>
+
+<main class="grid">
+    <mat-action-list class="summariesList">
+        <button mat-list-item (click)="this.enterName=true" class="addButton">
+            <mat-icon class="addIcon">add_circle</mat-icon>
+            <span>add a Summary</span>
+        </button>
+        <button mat-list-item *ngIf="enterName" class="enterName">
+            <mat-form-field floatLabel="never">
+                <input matInput placeholder="Enter name" (keyup.enter)="addSummary(nameInput.value)" #nameInput>
+            </mat-form-field>
+            <button mat-icon-button (click)="addSummary(nameInput.value)">
+                <mat-icon>check</mat-icon>
+            </button>
+            <button mat-icon-button (click)="enterName=false">
+                <mat-icon>close</mat-icon>
+            </button>
+        </button>
+        <button mat-list-item *ngFor="let summary of (summaries$ | async)"
+            (click)="summaryChosen(summary)" class="summaries">{{summary?.topic}}</button>
+    </mat-action-list>
+</main>
