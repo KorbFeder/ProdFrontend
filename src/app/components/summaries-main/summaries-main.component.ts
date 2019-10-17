@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SummeriesService } from 'src/app/core/services/summeries.service';
-import { FolderInterface } from 'src/app/core/models/folder-interface';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ConnectionService } from 'src/app/core/services/connection.service';
+import { SummariesInterface } from 'src/app/core/models/summaries-interface';
 
 @Component({
   selector: 'app-summaries-main',
@@ -13,20 +13,20 @@ import { ConnectionService } from 'src/app/core/services/connection.service';
   styleUrls: ['./summaries-main.component.scss']
 })
 export class SummariesMainComponent implements OnInit {
-  public folders$: Observable<FolderInterface[]>;
+  public summaries$: Observable<SummariesInterface[]>;
   public folderId: string;
 
   constructor(
     private route: ActivatedRoute,
     private summariesService: SummeriesService,
-    private store: Store<{folder: FolderInterface[]}>,
+    private store: Store<{summaries: SummariesInterface[]}>,
     private connection: ConnectionService
   ) {
-    this.folders$ = store.pipe(
-      select('folder'),
-      map(result => result.folder)
+    this.summaries$ = store.pipe(
+      select('summaries'),
+      map(result => result.summaries)
     );
-    this.folders$.subscribe();
+    this.summaries$.subscribe();
   }
 
   ngOnInit() {

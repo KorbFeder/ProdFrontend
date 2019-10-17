@@ -24,7 +24,7 @@ export class FolderService {
       );
     } else {
       return this.api.get('/folder').pipe(
-        tap((result: FolderInterface[]) => this.store.dispatch(LOAD({folder: result})))
+        tap((result: FolderInterface[]) => this.store.dispatch(LOAD({folders: result})))
       );
     }
   }

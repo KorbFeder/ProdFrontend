@@ -36,8 +36,8 @@ const folderReducer = createReducer(initialState,
         newState.folders = newState.folders.filter((folder) => folder.id !== idContainer.id);
         return newState;
     }),
-    on(ADD, (state, addedTodoContainer) => {
-        const newFolder: FolderInterface = _.cloneDeep(addedTodoContainer.folder);
+    on(ADD, (state, addedFolderContainer) => {
+        const newFolder: FolderInterface = _.cloneDeep(addedFolderContainer.folder);
         const newState = _.cloneDeep(state);
         newState.folders = [...newState.folders, newFolder];
         return newState;

@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { MatBottomSheet } from '@angular/material';
 import { AddFolderComponent } from 'src/app/components/add-folder/add-folder.component';
 import { FolderInterface } from 'src/app/core/models/folder-interface';
+import { FolderService } from 'src/app/core/services/folder.service';
+import { Store, select } from '@ngrx/store';
+import { ConnectionService } from 'src/app/core/services/connection.service';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-summaries',
@@ -9,11 +14,27 @@ import { FolderInterface } from 'src/app/core/models/folder-interface';
   styleUrls: ['./summaries.component.scss']
 })
 export class SummariesComponent implements OnInit {
-  folders: FolderInterface;
+  folders$: Observable<FolderInterface>;
 
-  constructor(private bottomSheet: MatBottomSheet) { }
+  constructor(
+    private bottomSheet: MatBottomSheet,
+    private folderService: FolderService,
+    private store: Store<{folder: FolderInterface[]}>,
+    private connection: ConnectionService
+  ) {
+    this.folders$ = store.pipe(
+      select('folder'),
+      map(result => result.folders)
+    );
+    this.folders$.subscribe();
+  }
 
   ngOnInit() {
+    this.connection.connected$.subscribe((connected) => {
+      if (connected) {
+        this.folderService.get().subscribe();
+      }
+    });
   }
 
   /**
@@ -23,9 +44,9 @@ export class SummariesComponent implements OnInit {
    */
   public addFolder() {
     const ref = this.bottomSheet.open(AddFolderComponent);
-    ref.afterDismissed().subscribe((response) => {
+    ref.afterDismissed().subscribe((response: FolderInterface) => {
       if (response) {
-        console.log(response);
+        this.folderService.save(response).subscribe();
       }
     });
   }

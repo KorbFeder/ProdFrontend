@@ -39,7 +39,6 @@ import { CustomFoodComponent } from './components/custom-food/custom-food.compon
 import { SummariesComponent } from './pages/summaries/summaries.component';
 import { SummariesMainComponent } from './components/summaries-main/summaries-main.component';
 import { AddFolderComponent } from './components/add-folder/add-folder.component';
-import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   declarations: [
