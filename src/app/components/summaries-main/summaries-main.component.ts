@@ -8,6 +8,8 @@ import { ConnectionService } from 'src/app/core/services/connection.service';
 import { SummariesInterface } from 'src/app/core/models/summaries-interface';
 import { FolderInterface } from 'src/app/core/models/folder-interface';
 import { FolderService } from 'src/app/core/services/folder.service';
+import { MatDialog } from '@angular/material';
+import { DeleteSummaryComponent } from '../delete-summary/delete-summary.component';
 
 @Component({
   selector: 'app-summaries-main',
@@ -19,14 +21,18 @@ export class SummariesMainComponent implements OnInit {
   public folderId: string;
   public folder: FolderInterface;
 
+  public edit = false;
   public enterName = false;
+  public editor = '<p> inital value</p>';
+  public currentSummary: SummariesInterface;
 
   constructor(
     private route: ActivatedRoute,
     private summariesService: SummeriesService,
     private folderService: FolderService,
     private store: Store<{summaries: SummariesInterface[]}>,
-    private connection: ConnectionService
+    private connection: ConnectionService,
+    private matDialog: MatDialog
   ) {
     this.summaries$ = store.pipe(
       select('summaries'),
@@ -45,6 +51,11 @@ export class SummariesMainComponent implements OnInit {
         });
       }
     });
+    this.currentSummary = {
+      folderId: +this.folderId,
+      topic: null,
+      content: null,
+    };
   }
 
   public addSummary(name: string) {
@@ -54,10 +65,36 @@ export class SummariesMainComponent implements OnInit {
       content: '',
     };
     this.enterName = false;
-    this.summariesService.save(summary).subscribe(res => console.log(res));
+    this.summariesService.save(summary).subscribe();
   }
 
   public summaryChosen(summary: SummariesInterface) {
+    this.currentSummary = summary;
+  }
 
+  public saveSummary() {
+    this.edit = !this.edit;
+    this.summariesService.update(this.currentSummary).subscribe();
+  }
+
+  public deleteSummary() {
+    const dialogRef = this.matDialog.open(DeleteSummaryComponent, {
+      width: '80%',
+      maxWidth: '30rem',
+      data: {
+        type: 'Summary',
+        message: this.currentSummary.topic
+      }
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === true) {
+        this.summariesService.delete(this.currentSummary.id).subscribe();
+        this.currentSummary = {
+          folderId: +this.folderId,
+          topic: null,
+          content: null,
+        };
+      }
+    });
   }
 }

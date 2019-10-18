@@ -40,7 +40,7 @@ export class SummeriesService {
     );
   }
 
-  public delete(id: string): Observable<number> {
+  public delete(id: string | number): Observable<number> {
     return this.api.delete(`/summaries/${id}`).pipe(
       tap((result) => this.store.dispatch(REMOVE({id: result.body})))
     );

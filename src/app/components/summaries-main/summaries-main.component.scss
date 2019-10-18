@@ -26,5 +26,10 @@
     border-bottom: 0.5px solid grey;
 }
 
-
-
+.view {
+    grid-column-start: 2;
+    grid-column-end:3;
+    height: 80vh;
+    margin-left: 2rem;
+    margin-right: 1rem;
+}

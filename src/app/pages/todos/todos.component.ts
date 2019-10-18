@@ -71,7 +71,7 @@ export class TodosComponent implements OnInit {
     const dialogRef = this.matDialog.open(DeleteTodoComponent, {
       width: '80%',
       maxWidth: '30rem',
-      data: todo.todoMsg,
+      data: todo,
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result === true) {

@@ -1,4 +1,15 @@
 <h1>{{ folder?.name }}</h1>
+<div class="folder-options">
+    <button mat-icon-button>
+        <mat-icon>delete</mat-icon>
+    </button>
+    <button mat-icon-button>
+        <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-icon-button>
+        <mat-icon>close</mat-icon>
+    </button>
+</div>
 
 <main class="grid">
     <mat-action-list class="summariesList">
@@ -20,4 +31,25 @@
         <button mat-list-item *ngFor="let summary of (summaries$ | async)"
             (click)="summaryChosen(summary)" class="summaries">{{summary?.topic}}</button>
     </mat-action-list>
+
+    <div *ngIf="currentSummary.content !== null">
+        <div class="view" *ngIf="edit">
+            <button mat-icon-button (click)="saveSummary()">
+                <mat-icon>save</mat-icon>
+            </button>
+            <button mat-icon-button (click)="edit = !edit">
+                <mat-icon>close</mat-icon>
+            </button>
+            <quill-editor [(ngModel)]="currentSummary.content"></quill-editor>
+        </div>
+        <div class="view" *ngIf="!edit">
+            <button mat-icon-button (click)="edit = !edit">
+                <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button (click)="deleteSummary()">
+                <mat-icon>delete</mat-icon>
+            </button>
+            <quill-view [content]="currentSummary.content"></quill-view>
+        </div>
+    </div>
 </main>

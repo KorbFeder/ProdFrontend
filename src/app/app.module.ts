@@ -39,6 +39,8 @@ import { CustomFoodComponent } from './components/custom-food/custom-food.compon
 import { SummariesComponent } from './pages/summaries/summaries.component';
 import { SummariesMainComponent } from './components/summaries-main/summaries-main.component';
 import { AddFolderComponent } from './components/add-folder/add-folder.component';
+import { QuillModule } from 'ngx-quill';
+import { DeleteSummaryComponent } from './components/delete-summary/delete-summary.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +65,7 @@ import { AddFolderComponent } from './components/add-folder/add-folder.component
     SummariesComponent,
     SummariesMainComponent,
     AddFolderComponent,
+    DeleteSummaryComponent,
   ],
   imports: [
     BrowserModule,
@@ -71,6 +74,11 @@ import { AddFolderComponent } from './components/add-folder/add-folder.component
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
+    QuillModule.forRoot({
+      modules: {
+        syntax: true,
+      }
+    }),
 
     MatMenuModule,
     MatToolbarModule,
@@ -98,7 +106,13 @@ import { AddFolderComponent } from './components/add-folder/add-folder.component
 
     StoreModule.forRoot({todos: todoRed, folder: folderRed, summaries: summariesRed}),
   ],
-  entryComponents: [AddTodoComponent, DeleteTodoComponent, ChangeDailyGoalComponent, CustomFoodComponent, AddFolderComponent],
+  entryComponents: [
+    AddTodoComponent,
+    DeleteTodoComponent,
+    ChangeDailyGoalComponent,
+    CustomFoodComponent,
+    AddFolderComponent,
+    DeleteSummaryComponent],
   providers: [
     MatDatepickerModule,
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
