@@ -22,6 +22,7 @@ export class SummariesMainComponent implements OnInit {
   public folder: FolderInterface;
 
   public edit = false;
+  public editFolderName = false;
   public enterName = false;
   public editor = '<p> inital value</p>';
   public currentSummary: SummariesInterface;
@@ -98,7 +99,7 @@ export class SummariesMainComponent implements OnInit {
       }
     });
   }
-  
+
   public deleteFolder() {
     const dialogRef = this.matDialog.open(DeleteSummaryComponent, {
       width: '80%',
@@ -114,5 +115,10 @@ export class SummariesMainComponent implements OnInit {
         this.router.navigate(['/summaries']);
       }
     });
+  }
+
+  public changedFolderName() {
+    this.editFolderName = !this.editFolderName;
+    this.folderService.update(this.folder).subscribe();
   }
 }
