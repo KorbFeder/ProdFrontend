@@ -41,8 +41,8 @@ export class FolderService {
     );
   }
 
-  public delete(id: string): Observable<number> {
-    return this.api.delete(`/summaries/${id}`).pipe(
+  public delete(id: string | number): Observable<number> {
+    return this.api.delete(`/folder/${id}`).pipe(
       tap((result) => this.store.dispatch(REMOVE({id: result.body})))
     );
   }

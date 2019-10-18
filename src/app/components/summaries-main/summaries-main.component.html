@@ -1,14 +1,16 @@
-<h1>{{ folder?.name }}</h1>
-<div class="folder-options">
-    <button mat-icon-button>
-        <mat-icon>delete</mat-icon>
-    </button>
-    <button mat-icon-button>
-        <mat-icon>edit</mat-icon>
-    </button>
-    <button mat-icon-button>
-        <mat-icon>close</mat-icon>
-    </button>
+<div class="headline">
+    <h1>{{ folder?.name }}</h1>
+    <div class="folder-options">
+        <button mat-icon-button (click)="deleteFolder()">
+            <mat-icon>delete</mat-icon>
+        </button>
+        <button mat-icon-button>
+            <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button (click)="router.navigate(['/summaries'])">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
 </div>
 
 <main class="grid">

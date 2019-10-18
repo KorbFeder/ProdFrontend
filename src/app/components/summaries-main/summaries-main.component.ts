@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SummeriesService } from 'src/app/core/services/summeries.service';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -28,6 +28,7 @@ export class SummariesMainComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    public router: Router,
     private summariesService: SummeriesService,
     private folderService: FolderService,
     private store: Store<{summaries: SummariesInterface[]}>,
@@ -94,6 +95,23 @@ export class SummariesMainComponent implements OnInit {
           topic: null,
           content: null,
         };
+      }
+    });
+  }
+  
+  public deleteFolder() {
+    const dialogRef = this.matDialog.open(DeleteSummaryComponent, {
+      width: '80%',
+      maxWidth: '30rem',
+      data: {
+        type: 'Folder',
+        message: this.folder.name
+      }
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === true) {
+        this.folderService.delete(this.folder.id).subscribe();
+        this.router.navigate(['/summaries']);
       }
     });
   }
