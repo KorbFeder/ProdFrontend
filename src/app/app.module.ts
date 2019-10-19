@@ -17,7 +17,6 @@ import { TodosComponent } from './pages/todos/todos.component';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { FitComponent } from './pages/fit/fit.component';
 import { AddTodoComponent } from './components/add-todo/add-todo.component';
-import { DeleteTodoComponent } from './components/delete-todo/delete-todo.component';
 import { StoreModule } from '@ngrx/store';
 import { todoRed } from './store/todo.reducer';
 import { folderRed } from './store/folder.reducer';
@@ -40,7 +39,7 @@ import { SummariesComponent } from './pages/summaries/summaries.component';
 import { SummariesMainComponent } from './components/summaries-main/summaries-main.component';
 import { AddFolderComponent } from './components/add-folder/add-folder.component';
 import { QuillModule } from 'ngx-quill';
-import { DeleteSummaryComponent } from './components/delete-summary/delete-summary.component';
+import { DeleteModalComponent } from './components/delete-modal/delete-modal.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +48,6 @@ import { DeleteSummaryComponent } from './components/delete-summary/delete-summa
     SettingsComponent,
     FitComponent,
     AddTodoComponent,
-    DeleteTodoComponent,
     TodoCardComponent,
     SecureImageComponent,
     FoodComponent,
@@ -65,7 +63,7 @@ import { DeleteSummaryComponent } from './components/delete-summary/delete-summa
     SummariesComponent,
     SummariesMainComponent,
     AddFolderComponent,
-    DeleteSummaryComponent,
+    DeleteModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -108,11 +106,10 @@ import { DeleteSummaryComponent } from './components/delete-summary/delete-summa
   ],
   entryComponents: [
     AddTodoComponent,
-    DeleteTodoComponent,
     ChangeDailyGoalComponent,
     CustomFoodComponent,
     AddFolderComponent,
-    DeleteSummaryComponent],
+    DeleteModalComponent],
   providers: [
     MatDatepickerModule,
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}

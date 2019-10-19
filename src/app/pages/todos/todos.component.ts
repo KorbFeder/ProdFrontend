@@ -3,11 +3,11 @@ import { TodoInterface } from 'src/app/core/models/todo-interface';
 import { MatBottomSheet, MatDialog } from '@angular/material';
 import { AddTodoComponent } from 'src/app/components/add-todo/add-todo.component';
 import { TodosService } from 'src/app/core/services/todos.service';
-import { DeleteTodoComponent } from 'src/app/components/delete-todo/delete-todo.component';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { map, mergeMap } from 'rxjs/operators';
 import { ConnectionService } from 'src/app/core/services/connection.service';
+import { DeleteModalComponent } from 'src/app/components/delete-modal/delete-modal.component';
 
 @Component({
   selector: 'app-todos',
@@ -68,10 +68,13 @@ export class TodosComponent implements OnInit {
    * @param todo the todo which gets deleted
    */
   public deleteTodo(todo) {
-    const dialogRef = this.matDialog.open(DeleteTodoComponent, {
+    const dialogRef = this.matDialog.open(DeleteModalComponent, {
       width: '80%',
       maxWidth: '30rem',
-      data: todo,
+      data: {
+        type: 'Todo',
+        message: todo.todoMsg
+      },
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result === true) {

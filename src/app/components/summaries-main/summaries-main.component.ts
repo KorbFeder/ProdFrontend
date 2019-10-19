@@ -9,7 +9,7 @@ import { SummariesInterface } from 'src/app/core/models/summaries-interface';
 import { FolderInterface } from 'src/app/core/models/folder-interface';
 import { FolderService } from 'src/app/core/services/folder.service';
 import { MatDialog } from '@angular/material';
-import { DeleteSummaryComponent } from '../delete-summary/delete-summary.component';
+import { DeleteModalComponent } from '../delete-modal/delete-modal.component';
 
 @Component({
   selector: 'app-summaries-main',
@@ -24,7 +24,6 @@ export class SummariesMainComponent implements OnInit {
   public edit = false;
   public editFolderName = false;
   public enterName = false;
-  public editor = '<p> inital value</p>';
   public currentSummary: SummariesInterface;
 
   constructor(
@@ -80,7 +79,7 @@ export class SummariesMainComponent implements OnInit {
   }
 
   public deleteSummary() {
-    const dialogRef = this.matDialog.open(DeleteSummaryComponent, {
+    const dialogRef = this.matDialog.open(DeleteModalComponent, {
       width: '80%',
       maxWidth: '30rem',
       data: {
@@ -101,7 +100,7 @@ export class SummariesMainComponent implements OnInit {
   }
 
   public deleteFolder() {
-    const dialogRef = this.matDialog.open(DeleteSummaryComponent, {
+    const dialogRef = this.matDialog.open(DeleteModalComponent, {
       width: '80%',
       maxWidth: '30rem',
       data: {

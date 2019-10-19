@@ -2,11 +2,11 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
-  selector: 'app-delete-summary',
-  templateUrl: './delete-summary.component.html',
-  styleUrls: ['./delete-summary.component.scss']
+  selector: 'app-delete-modal',
+  templateUrl: './delete-modal.component.html',
+  styleUrls: ['./delete-modal.component.scss']
 })
-export class DeleteSummaryComponent implements OnInit {
+export class DeleteModalComponent implements OnInit {
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: {type: string, message: string}) { }
 
