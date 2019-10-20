@@ -1,6 +1,7 @@
 import { Injectable, NgZone } from '@angular/core';
 import {webSocket} from 'rxjs/webSocket';
 import { BehaviorSubject } from 'rxjs';
+import {environment} from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class ConnectionService {
   }
 
   private startSocket() {
-    const wsSubj = webSocket('ws://localhost/api/alive');
+    const wsSubj = webSocket(environment.ws_url);
     wsSubj.subscribe((msg) => {
       if (msg === 'ping') {
         if (this.connected$.value === false) {
