@@ -63,6 +63,7 @@ export class SummariesMainComponent implements OnInit {
       content: null,
     };
     // if user gets logged out automatically or he switches the page save the content
+    // todo -> maybe better method for buffereing/saving the content.
     this.router.events.subscribe((val) => {
       if (val instanceof NavigationStart) {
         this.saveSummary();
