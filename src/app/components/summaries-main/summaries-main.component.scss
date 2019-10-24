@@ -1,19 +1,11 @@
-.grid {
-    display: grid;
-    grid-template-columns: 18% auto; 
-}
-
-.summariesList {
-    grid-column-start: 1;
-    grid-column-end: 2;
-}
+$light-grey: #F0F0F0;
 
 .addIcon {
     margin-right: 0.5rem;
 }
 
 .addButton {
-    background-color: #EEEEEE88;
+    background-color: $light-grey;
     border-bottom: 0.5px solid grey;
 }
 
@@ -21,17 +13,13 @@
     border-bottom: 0.5px solid lightgrey;
 }
 
-.enterName {
-    background-color: #EEEEEE88;
-    border-bottom: 0.5px solid grey;
+.activeSummary {
+    background-color: $light-grey;
 }
 
-.view {
-    grid-column-start: 2;
-    grid-column-end:3;
-    height: 80vh;
-    margin-left: 2rem;
-    margin-right: 1rem;
+.enterName {
+    background-color: $light-grey !important;
+    border-bottom: 0.5px solid grey;
 }
 
 .folder-options {
@@ -45,4 +33,44 @@
 
 .edit-name {
     background-color: lightgrey;
+}
+
+@media only screen and (max-width : 768px) {
+    .grid {
+        display: grid;
+        grid-template-rows: auto auto; 
+    }
+
+    .summariesList {
+        grid-row-start: 1;
+        grid-row-end: 2;
+    }
+
+    .view {
+        grid-row-start: 2;
+        grid-row-end:3;
+        height: 80vh;
+    }
+
+
+}
+
+@media only screen and (min-width : 768px) {
+    .grid {
+        display: grid;
+        grid-template-columns: 18% auto; 
+    }
+
+    .summariesList {
+        grid-column-start: 1;
+        grid-column-end: 2;
+    }
+
+    .view {
+        grid-column-start: 2;
+        grid-column-end:3;
+        height: 80vh;
+        margin-left: 2rem;
+        margin-right: 1rem;
+    }
 }

@@ -1,18 +1,7 @@
 
 /* The fab button on the bottom right for adding todos */
+
 $todoColumns: 4;
-
-/* The main grid container */
-main {
-    display: flex;
-    flex-direction: column;
-}
-
-@for $i from 1 through $todoColumns {
-    .card-column-#{$i} {
-        order: #{$i};
-    }
-}
 
 .fab {
     position: fixed;
@@ -20,8 +9,24 @@ main {
     bottom: 1rem;
 }
 
-app-todo-card {
-    margin-bottom: 1.125rem;
+
+@media only screen and (max-width : 768px) {
+
+    /* The main grid container */
+    main {
+        display: flex;
+        flex-direction: column;
+    }
+
+    @for $i from 1 through $todoColumns {
+        .card-column-#{$i} {
+            order: #{$i};
+        }
+    }
+
+    app-todo-card {
+        margin-bottom: 1.125rem;
+    }
 }
 
 @media only screen and (min-width : 768px) {

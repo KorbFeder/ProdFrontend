@@ -26,7 +26,7 @@
             <mat-icon class="addIcon">add_circle</mat-icon>
             <span>add a Summary</span>
         </button>
-        <button mat-list-item *ngIf="enterName" class="enterName">
+        <button mat-list-item [disableRipple]="true" *ngIf="enterName" class="enterName">
             <mat-form-field floatLabel="never">
                 <input matInput placeholder="Enter name" (keyup.enter)="addSummary(nameInput.value)" #nameInput>
             </mat-form-field>
@@ -37,7 +37,8 @@
                 <mat-icon>close</mat-icon>
             </button>
         </button>
-        <button mat-list-item *ngFor="let summary of (summaries$ | async)"
+        <button [ngClass]="{'activeSummary': summary === currentSummary}"
+            mat-list-item *ngFor="let summary of (summaries$ | async)"
             (click)="summaryChosen(summary)" class="summaries">{{summary?.topic}}</button>
     </mat-action-list>
 
