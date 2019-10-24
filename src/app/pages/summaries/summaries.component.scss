@@ -15,11 +15,13 @@ a {
     }
 
     .folder {
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
         display: flex;
         flex-direction: column;
         align-items: center;
         mat-icon {
-            font-size: 29vw;
+            font-size: 25vw;
             display: block;
             color: #f0dc82;
         }
