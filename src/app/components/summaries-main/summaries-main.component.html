@@ -51,10 +51,10 @@
         <quill-editor [(ngModel)]="currentSummary.content"></quill-editor>
     </div>
     <div class="view" *ngIf="!edit">
-        <button mat-icon-button (click)="edit = !edit">
+        <button *ngIf="currentSummary.topic" mat-icon-button (click)="edit = !edit">
             <mat-icon>edit</mat-icon>
         </button>
-        <button mat-icon-button (click)="deleteSummary()">
+        <button *ngIf="currentSummary.topic" mat-icon-button (click)="deleteSummary()">
             <mat-icon>delete</mat-icon>
         </button>
         <quill-view [content]="currentSummary.content"></quill-view>

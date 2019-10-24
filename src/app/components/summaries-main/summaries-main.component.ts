@@ -27,7 +27,7 @@ export class SummariesMainComponent implements OnInit {
   public editFolderName = false;
   public enterName = false;
   // The summary selected at the moment
-  public currentSummary: SummariesInterface;
+  public currentSummary: SummariesInterface = null;
 
   constructor(
     private route: ActivatedRoute,
