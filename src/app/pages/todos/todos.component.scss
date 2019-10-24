@@ -1,15 +1,4 @@
 
-$todoColumns: 4;
-
-/* Todo cards */
-app-todo-card {
-    margin: auto;
-    margin-top: 1.125rem;
-    ::ng-deep .block-container {
-        width: calc(95vw / #{$todoColumns});
-    }
-}
-
 /* The fab button on the bottom right for adding todos */
 .fab {
     position: fixed;
@@ -17,22 +6,35 @@ app-todo-card {
     bottom: 1rem;
 }
 
-/* The main grid container */
-main {
-    display: grid;
-    grid-auto-flow: column dense;
-    grid-template-columns: repeat($todoColumns, auto);
-    grid-gap: 0.5rem;
+@media only screen and (min-width : 768px) {
+    $todoColumns: 4;
 
-}
-
-@for $i from 1 through $todoColumns {
-    .card-column-#{$i} {
-        grid-column: #{$i} / calc(#{$i} + 1)
+    /* Todo cards */
+    app-todo-card {
+        margin: auto;
+        margin-top: 1.125rem;
+        ::ng-deep .block-container {
+            width: calc(95vw / #{$todoColumns});
+        }
     }
-}
 
-/* The headlines above each column */
-.importance-headline {
-    text-align: center;
+    /* The main grid container */
+    main {
+        display: grid;
+        grid-auto-flow: column dense;
+        grid-template-columns: repeat($todoColumns, auto);
+        grid-gap: 0.5rem;
+
+    }
+
+    @for $i from 1 through $todoColumns {
+        .card-column-#{$i} {
+            grid-column: #{$i} / calc(#{$i} + 1)
+        }
+    }
+
+    /* The headlines above each column */
+    .importance-headline {
+        text-align: center;
+    }
 }

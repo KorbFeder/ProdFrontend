@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, NavigationStart } from '@angular/router';
 import { SummeriesService } from 'src/app/core/services/summeries.service';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -17,13 +17,16 @@ import { DeleteModalComponent } from '../delete-modal/delete-modal.component';
   styleUrls: ['./summaries-main.component.scss']
 })
 export class SummariesMainComponent implements OnInit {
+  // Observable that reacts to changes in ngrx-store
   public summaries$: Observable<SummariesInterface[]>;
+  // folder-id passed over the url
   public folderId: string;
   public folder: FolderInterface;
 
   public edit = false;
   public editFolderName = false;
   public enterName = false;
+  // The summary selected at the moment
   public currentSummary: SummariesInterface;
 
   constructor(
@@ -35,6 +38,7 @@ export class SummariesMainComponent implements OnInit {
     private connection: ConnectionService,
     private matDialog: MatDialog
   ) {
+    // Subsribes the Observable to ngrx Store
     this.summaries$ = store.pipe(
       select('summaries'),
       map(result => result.summaries)
@@ -43,6 +47,7 @@ export class SummariesMainComponent implements OnInit {
   }
 
   ngOnInit() {
+    // loads the current content of the page
     this.folderId = this.route.snapshot.paramMap.get('id');
     this.connection.connected$.subscribe((connected) => {
       if (connected) {
@@ -57,8 +62,20 @@ export class SummariesMainComponent implements OnInit {
       topic: null,
       content: null,
     };
+    // if user gets logged out automatically or he switches the page save the content
+    this.router.events.subscribe((val) => {
+      if (val instanceof NavigationStart) {
+        this.saveSummary();
+      }
+    });
   }
 
+  /**
+   * This function is executed if the user confirms the new summary that is added.
+   * It will create a new summary in the database.
+   * 
+   * @param name The name of the newly created Summary
+   */
   public addSummary(name: string) {
     const summary: SummariesInterface = {
       folderId: +this.folderId,
@@ -69,15 +86,30 @@ export class SummariesMainComponent implements OnInit {
     this.summariesService.save(summary).subscribe();
   }
 
+  /**
+   * This function gets triggered when the user clicks a different summary,
+   * it will switch im to the contents of the selected summary.
+   * 
+   * @param summary the summary the user clicked on
+   */
   public summaryChosen(summary: SummariesInterface) {
     this.currentSummary = summary;
   }
 
+  /**
+   * This function gets triggered if the user saves the content of a summary.
+   * This will update the summary in the database with the new written content.
+   */
   public saveSummary() {
     this.edit = !this.edit;
     this.summariesService.update(this.currentSummary).subscribe();
   }
 
+  /**
+   * This function is triggered when the user clicks the trashcan simbol.
+   * It will show a modal window, in which the user can confirm his actions.
+   * If he does confim them the selected summary will get deleted.
+   */
   public deleteSummary() {
     const dialogRef = this.matDialog.open(DeleteModalComponent, {
       width: '80%',
@@ -99,6 +131,11 @@ export class SummariesMainComponent implements OnInit {
     });
   }
 
+  /**
+   * This function gets triggered when the user clicks the trashcan for the folder.
+   * It will show a modal window in which the user has to confirm his actions.
+   * If he does the Folder with all the summaries will get deleted from the database.
+   */
   public deleteFolder() {
     const dialogRef = this.matDialog.open(DeleteModalComponent, {
       width: '80%',
@@ -116,6 +153,9 @@ export class SummariesMainComponent implements OnInit {
     });
   }
 
+  /**
+   * Function that allows the user to change the foldername
+   */
   public changedFolderName() {
     this.editFolderName = !this.editFolderName;
     this.folderService.update(this.folder).subscribe();
