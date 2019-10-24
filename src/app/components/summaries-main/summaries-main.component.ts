@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, NavigationStart } from '@angular/router';
 import { SummeriesService } from 'src/app/core/services/summeries.service';
 import { Store, select } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, timer } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ConnectionService } from 'src/app/core/services/connection.service';
 import { SummariesInterface } from 'src/app/core/models/summaries-interface';
@@ -62,13 +62,6 @@ export class SummariesMainComponent implements OnInit {
       topic: null,
       content: null,
     };
-    // if user gets logged out automatically or he switches the page save the content
-    // todo -> maybe better method for buffereing/saving the content.
-    this.router.events.subscribe((val) => {
-      if (val instanceof NavigationStart) {
-        this.saveSummary();
-      }
-    });
   }
 
   /**
