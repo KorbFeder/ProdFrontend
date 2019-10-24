@@ -26,9 +26,11 @@ export class AddTodoComponent implements OnInit {
     if (data.todo) {
       this.headline = 'Edit Todo';
       this.todo = data.todo;
-      const nameArray = this.todo.imgUrl.split('/');
-      const name = nameArray[nameArray.length - 1].split('-');
-      this.fileLabel = name[0];
+      if (this.todo.imgUrl) {
+        const nameArray = this.todo.imgUrl.split('/');
+        const name = nameArray[nameArray.length - 1].split('-');
+        this.fileLabel = name[0];
+      }
     }
   }
 
