@@ -1,7 +1,8 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
 import { TodosService } from 'src/app/core/services/todos.service';
 import { TodoInterface } from 'src/app/core/models/todo-interface';
 import { MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA } from '@angular/material';
+import { todoRed } from 'src/app/store/todo.reducer';
 
 /**
  * The bottom sheet component, that gets opened when the user tries to add a todo
@@ -18,6 +19,9 @@ export class AddTodoComponent implements OnInit {
   public headline = 'New Todo';
   public fileLabel: string = '';
   public file: File = null;
+
+  @ViewChild('fileInput')
+  fileInput: ElementRef;
 
   constructor(private todoService: TodosService,
               @Inject(MAT_BOTTOM_SHEET_DATA) public data: any,
@@ -42,6 +46,11 @@ export class AddTodoComponent implements OnInit {
     this.fileLabel = this.file.name;
   }
 
+  public removeFile() {
+    this.fileInput.nativeElement.value = '';
+    this.file = null;
+    this.fileLabel = '';
+  }
 
   /**
    * This method gets triggered, when save button gets triggered, it will save the data to the store and
@@ -57,7 +66,7 @@ export class AddTodoComponent implements OnInit {
     const todo: TodoInterface = Object.assign(tmp, value);
     todo.details = todo.details === '' ? null : todo.details;
     todo.endDate = <any>todo.endDate === '' ? null : todo.endDate;
-    if(this.todo) {
+    if (this.todo) {
       todo.id = this.todo.id;
       todo.imgUrl = this.todo.imgUrl;
     }

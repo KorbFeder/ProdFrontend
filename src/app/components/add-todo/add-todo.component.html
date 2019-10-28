@@ -31,6 +31,9 @@
         Choose File
       </button> 
       &nbsp;{{fileLabel}}
+      <button *ngIf="fileLabel" mat-icon-button (click)="removeFile()">
+        <mat-icon>cancel</mat-icon>
+      </button>
     </p> 
     <input hidden #fileInput type="file" name="todo-image" (change)="onFileSelected($event)" accept="image/*">
   </div>

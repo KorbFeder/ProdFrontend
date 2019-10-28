@@ -116,6 +116,10 @@ export class TodosComponent implements OnInit {
             })
           ).subscribe();
         } else {
+          if (response.todo.imgUrl) {
+            this.todoService.deleteFile(response.todo.imgUrl).subscribe();
+            response.todo.imgUrl = null;
+          }
           this.todoService.update(response.todo).subscribe();
         }
       }
