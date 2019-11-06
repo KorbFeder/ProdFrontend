@@ -20,7 +20,7 @@ export class AddTodoComponent implements OnInit {
   public fileLabel: string = '';
   public file: File = null;
 
-  @ViewChild('fileInput')
+  @ViewChild('fileInput', {static: false})
   fileInput: ElementRef;
 
   constructor(private todoService: TodosService,

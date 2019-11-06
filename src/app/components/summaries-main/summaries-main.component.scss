@@ -1,4 +1,5 @@
 $light-grey: #F0F0F0;
+$summarie-list-width: 18vw;
 
 .addIcon {
     margin-right: 0.5rem;
@@ -12,6 +13,7 @@ $light-grey: #F0F0F0;
 .summaries {
     border-bottom: 0.5px solid lightgrey;
 }
+    
 
 .activeSummary {
     background-color: $light-grey;
@@ -20,10 +22,6 @@ $light-grey: #F0F0F0;
 .enterName {
     background-color: $light-grey !important;
     border-bottom: 0.5px solid grey;
-}
-
-.folder-options {
-    margin-left: 2rem;
 }
 
 .headline {
@@ -35,6 +33,7 @@ $light-grey: #F0F0F0;
     background-color: lightgrey;
 }
 
+
 @media only screen and (max-width : 768px) {
     .grid {
         display: grid;
@@ -42,6 +41,7 @@ $light-grey: #F0F0F0;
     }
 
     .summariesList {
+        overflow: auto;
         grid-row-start: 1;
         grid-row-end: 2;
     }
@@ -58,10 +58,11 @@ $light-grey: #F0F0F0;
 @media only screen and (min-width : 768px) {
     .grid {
         display: grid;
-        grid-template-columns: 18% auto; 
+        grid-template-columns: $summarie-list-width auto; 
     }
 
     .summariesList {
+        overflow: auto;
         grid-column-start: 1;
         grid-column-end: 2;
     }

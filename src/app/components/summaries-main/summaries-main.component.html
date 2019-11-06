@@ -1,47 +1,65 @@
+<!-- The Headline with the editing options -->
 <div class="headline">
+    <button mat-icon-button (click)="router.navigate(['/summaries'])">
+        <mat-icon>chevron_left</mat-icon>
+    </button>
     <h1 *ngIf="!editFolderName">{{ folder?.name }}</h1>
     <div *ngIf="editFolderName" class="edit-name">
-        <mat-form-field>
-            <input matInput placeholder="enter new folder name" [(ngModel)]="folder.name" (keydown.enter)="changedFolderName()">
+        <mat-form-field floatLabel="never">
+            <input #folderNameInput matInput [(ngModel)]="folder.name"
+            (keyup.enter)="changedFolderName()" (focusout)="editFolderName=false">
+
         </mat-form-field>
         <button mat-icon-button (click)="changedFolderName()"><mat-icon>check</mat-icon></button>
-        <button mat-icon-button (click)="editFolderName = !editFolderName"><mat-icon>close</mat-icon></button>
     </div>
-    <div class="folder-options">
-        <button mat-icon-button (click)="deleteFolder()">
+    <!-- Thre dots drop down Menu for the Headline-->
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>settings</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="deleteFolder()">
             <mat-icon>delete</mat-icon>
+            <span>Delete the Folder</span>
         </button>
-        <button mat-icon-button (click)="editFolderName = !editFolderName">
+        <button mat-menu-item (click)="editFolderName=!editFolderName">
             <mat-icon>edit</mat-icon>
+            <span>Edit the Foldername</span>
         </button>
-        <button mat-icon-button (click)="router.navigate(['/summaries'])">
-            <mat-icon>close</mat-icon>
-        </button>
-    </div>
+    </mat-menu>
 </div>
 
 <main class="grid">
+    <!-- The List with all the Summaries -->
     <mat-action-list class="summariesList">
-        <button mat-list-item (click)="this.enterName=true" class="addButton">
+        <!-- Add a new summary button -->
+        <button mat-list-item (click)="this.enterName=true;" class="addButton">
             <mat-icon class="addIcon">add_circle</mat-icon>
             <span>add a Summary</span>
         </button>
+        <!-- The Input field for creating a new Summary -->
         <button mat-list-item [disableRipple]="true" *ngIf="enterName" class="enterName">
             <mat-form-field floatLabel="never">
-                <input matInput placeholder="Enter name" (keyup.enter)="addSummary(nameInput.value)" #nameInput>
+                <input matInput placeholder="Enter name" (keyup.enter)="addSummary(nameInput.value)" #nameInput
+                (focusout)="enterName = false">
             </mat-form-field>
-            <button mat-icon-button (click)="addSummary(nameInput.value)">
-                <mat-icon>check</mat-icon>
-            </button>
-            <button mat-icon-button (click)="enterName=false">
-                <mat-icon>close</mat-icon>
-            </button>
         </button>
+        <!-- The Summary items inside the list -->
         <button [ngClass]="{'activeSummary': summary === currentSummary}"
             mat-list-item *ngFor="let summary of (summaries$ | async)"
-            (click)="summaryChosen(summary)" class="summaries">{{summary?.topic}}</button>
+            (click)="summaryChosen(summary)" class="summaries">
+
+            <!-- Default item -->
+            <span *ngIf="summary.id !== editSummaryName?.id">{{summary?.topic}}</span>
+            <!-- if an item gets edited -->
+            <mat-form-field floatLabel="never" *ngIf="editSummaryName && summary.id === editSummaryName?.id">
+                <input matInput #nameInputEdit [ngModel]="currentSummary.topic"
+                (keyup.enter)="updateSummaryName(nameInputEdit.value)"
+                (focusout)="editSummaryName = null">
+            </mat-form-field>
+        </button>
     </mat-action-list>
 
+    <!-- The view of the Text editor -->
     <div class="view" *ngIf="edit">
         <button mat-icon-button (click)="saveSummary()">
             <mat-icon>save</mat-icon>
@@ -51,13 +69,27 @@
         </button>
         <quill-editor [(ngModel)]="currentSummary.content"></quill-editor>
     </div>
+    <!-- The view of the saved Text (not editor mode) -->
     <div class="view" *ngIf="!edit">
-        <button *ngIf="currentSummary.topic" mat-icon-button (click)="edit = !edit">
-            <mat-icon>edit</mat-icon>
-        </button>
-        <button *ngIf="currentSummary.topic" mat-icon-button (click)="deleteSummary()">
-            <mat-icon>delete</mat-icon>
-        </button>
+        <div *ngIf="currentSummary.topic">
+            <button mat-icon-button (click)="edit = !edit">
+                <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>more_vert</mat-icon>
+            </button>
+            <!-- The Menu for deleting and editing, summaries-->
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="deleteSummary()">
+                    <mat-icon>delete</mat-icon>
+                    <span>Delete the Summary</span>
+                </button>
+                <button mat-menu-item (click)="editSummaryName=currentSummary">
+                    <mat-icon>edit</mat-icon>
+                    <span>Edit the Summaryname</span>
+                </button>
+            </mat-menu>
+        </div>
         <quill-view [content]="currentSummary.content"></quill-view>
     </div>
 </main>

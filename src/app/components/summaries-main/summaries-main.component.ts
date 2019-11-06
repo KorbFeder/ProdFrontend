@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, NavigationStart } from '@angular/router';
+import { Component, OnInit, ViewChildren, QueryList, ElementRef, AfterViewInit, ChangeDetectorRef, AfterViewChecked, AfterContentInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router, } from '@angular/router';
 import { SummeriesService } from 'src/app/core/services/summeries.service';
 import { Store, select } from '@ngrx/store';
-import { Observable, timer } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ConnectionService } from 'src/app/core/services/connection.service';
 import { SummariesInterface } from 'src/app/core/models/summaries-interface';
@@ -14,9 +14,9 @@ import { DeleteModalComponent } from '../delete-modal/delete-modal.component';
 @Component({
   selector: 'app-summaries-main',
   templateUrl: './summaries-main.component.html',
-  styleUrls: ['./summaries-main.component.scss']
+  styleUrls: ['./summaries-main.component.scss'],
 })
-export class SummariesMainComponent implements OnInit {
+export class SummariesMainComponent implements OnInit, AfterViewChecked {
   // Observable that reacts to changes in ngrx-store
   public summaries$: Observable<SummariesInterface[]>;
   // folder-id passed over the url
@@ -26,8 +26,13 @@ export class SummariesMainComponent implements OnInit {
   public edit = false;
   public editFolderName = false;
   public enterName = false;
+  public editSummaryName: SummariesInterface = null;
   // The summary selected at the moment
   public currentSummary: SummariesInterface = null;
+
+  // The Input elements to change the Names
+  @ViewChildren('folderNameInput, nameInput, nameInputEdit')
+  private nameChange: QueryList<ElementRef>;
 
   constructor(
     private route: ActivatedRoute,
@@ -36,7 +41,7 @@ export class SummariesMainComponent implements OnInit {
     private folderService: FolderService,
     private store: Store<{summaries: SummariesInterface[]}>,
     private connection: ConnectionService,
-    private matDialog: MatDialog
+    private matDialog: MatDialog,
   ) {
     // Subsribes the Observable to ngrx Store
     this.summaries$ = store.pipe(
@@ -64,10 +69,23 @@ export class SummariesMainComponent implements OnInit {
     };
   }
 
+  ngAfterViewChecked(): void {
+    if (this.editFolderName || this.editSummaryName || this.enterName) {
+      // Todo -> remove setTimeout which is only a workaround for change detection
+      setTimeout(() => {
+        if (this.nameChange) {
+          this.nameChange.forEach((elem) => {
+            elem.nativeElement.focus();
+          });
+        }
+      });
+    }
+  }
+
   /**
    * This function is executed if the user confirms the new summary that is added.
    * It will create a new summary in the database.
-   * 
+   *
    * @param name The name of the newly created Summary
    */
   public addSummary(name: string) {
@@ -99,6 +117,17 @@ export class SummariesMainComponent implements OnInit {
     this.summariesService.update(this.currentSummary).subscribe();
   }
 
+  /**
+   * This function renames the currentSummary to the name entered in the
+   * text-input.
+   * @param name the new name
+   */
+  public updateSummaryName(name: string) {
+    this.currentSummary.topic = name;
+    this.editSummaryName = null;
+    this.summariesService.update(this.currentSummary).subscribe();
+
+  }
   /**
    * This function is triggered when the user clicks the trashcan simbol.
    * It will show a modal window, in which the user can confirm his actions.
