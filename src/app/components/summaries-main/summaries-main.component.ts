@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChildren, QueryList, ElementRef, AfterViewInit, ChangeDetectorRef, AfterViewChecked, AfterContentInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChildren, QueryList, ElementRef, AfterViewChecked } from '@angular/core';
 import { ActivatedRoute, Router, } from '@angular/router';
 import { SummeriesService } from 'src/app/core/services/summeries.service';
 import { Store, select } from '@ngrx/store';
@@ -11,6 +11,7 @@ import { FolderService } from 'src/app/core/services/folder.service';
 import { MatDialog } from '@angular/material';
 import { DeleteModalComponent } from '../delete-modal/delete-modal.component';
 
+// todo -> maybe move List and Quill editor as an own Component
 @Component({
   selector: 'app-summaries-main',
   templateUrl: './summaries-main.component.html',
