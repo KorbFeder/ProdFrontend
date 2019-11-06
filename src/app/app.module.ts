@@ -76,6 +76,9 @@ import { DeleteModalComponent } from './components/delete-modal/delete-modal.com
     QuillModule.forRoot({
       modules: {
         syntax: true,
+        clipboard: {
+          matchVisual: false
+        }
       }
     }),
 
