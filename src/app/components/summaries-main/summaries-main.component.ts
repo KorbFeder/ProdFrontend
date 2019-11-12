@@ -27,6 +27,7 @@ export class SummariesMainComponent implements OnInit, AfterViewChecked {
   public edit = false;
   public editFolderName = false;
   public enterName = false;
+  public uploadError = false;
   public editSummaryName: SummariesInterface = null;
   // The summary selected at the moment
   public currentSummary: SummariesInterface = null;
@@ -115,7 +116,10 @@ export class SummariesMainComponent implements OnInit, AfterViewChecked {
    */
   public saveSummary() {
     this.edit = !this.edit;
-    this.summariesService.update(this.currentSummary).subscribe();
+    this.summariesService.update(this.currentSummary).subscribe(
+      () => this.uploadError = false,
+      (err) => this.uploadError = true
+    );
   }
 
   /**
@@ -126,7 +130,10 @@ export class SummariesMainComponent implements OnInit, AfterViewChecked {
   public updateSummaryName(name: string) {
     this.currentSummary.topic = name;
     this.editSummaryName = null;
-    this.summariesService.update(this.currentSummary).subscribe();
+    this.summariesService.update(this.currentSummary).subscribe(
+      () => this.uploadError = false,
+      (err) => this.uploadError = true
+    );
 
   }
   /**

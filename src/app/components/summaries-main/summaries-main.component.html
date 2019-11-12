@@ -71,6 +71,7 @@
     </div>
     <!-- The view of the saved Text (not editor mode) -->
     <div class="view" *ngIf="!edit">
+        <mat-error *ngIf="uploadError">Data could not be saved!</mat-error>
         <div *ngIf="currentSummary.topic">
             <button mat-icon-button (click)="edit = !edit">
                 <mat-icon>edit</mat-icon>
