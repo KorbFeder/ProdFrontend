@@ -1,3 +1,58 @@
-<p>
-  fit works!
-</p>
+<!-- The Selection of the table -->
+<h3>Choose a Day and a Phase to display the Tables content:</h3>
+<mat-form-field>
+  <mat-label>Phase</mat-label>
+  <mat-select [(value)]="phase">
+    <mat-option value="{{num}}" *ngFor="let num of [1, 2, 3]"> {{num}}</mat-option>
+  </mat-select>
+</mat-form-field>
+<mat-form-field>
+  <mat-label>Day</mat-label>
+  <mat-select [(value)]=dayNr>
+    <mat-option *ngFor="let num of [1, 2, 3]" value="{{num}}"> {{num}}</mat-option>
+  </mat-select>
+</mat-form-field>
+
+<!-- The Table of Content -->
+<mat-table [dataSource]="data" class="mat-elevation-z8">
+  <ng-container matColumnDef="muscle">
+    <mat-header-cell *matHeaderCellDef>Muscle Group</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{element.muscle}}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="exercise">
+    <mat-header-cell *matHeaderCellDef>Exercize</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{element.exercise}}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="amountOfSets">
+    <mat-header-cell *matHeaderCellDef>Sets</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{element.amountOfSets}}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="repetitions">
+    <mat-header-cell *matHeaderCellDef>Repetitions</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{element.repetitions}}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="pauseInbetween">
+    <mat-header-cell *matHeaderCellDef>Pause</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{element.pauseInbetween}}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="startingWeight">
+    <mat-header-cell *matHeaderCellDef>Starting Weight</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{element.startingWeight}}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="repetitionsDone">
+    <mat-header-cell *matHeaderCellDef>Repetitions done</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{element.repetitionsDone}}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="weightsUsed">
+    <mat-header-cell *matHeaderCellDef>Weights used</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{element.weightsUsed}}</mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+</mat-table>
+
+<!-- Fab Button bottom right -->
+<button mat-fab class="fab" (click)="addTrainingsPlanRow()" *ngIf="phase !== null && dayNr !== null">
+  <mat-icon>add</mat-icon>
+</button>

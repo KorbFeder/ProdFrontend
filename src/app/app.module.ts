@@ -41,6 +41,7 @@ import { SummariesMainComponent } from './components/summaries-main/summaries-ma
 import { AddFolderComponent } from './components/add-folder/add-folder.component';
 import { QuillModule } from 'ngx-quill';
 import { DeleteModalComponent } from './components/delete-modal/delete-modal.component';
+import { AddFitRowComponent } from './components/add-fit-row/add-fit-row.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import { DeleteModalComponent } from './components/delete-modal/delete-modal.com
     SummariesMainComponent,
     AddFolderComponent,
     DeleteModalComponent,
+    AddFitRowComponent,
   ],
   imports: [
     BrowserModule,
@@ -113,6 +115,7 @@ import { DeleteModalComponent } from './components/delete-modal/delete-modal.com
     ChangeDailyGoalComponent,
     CustomFoodComponent,
     AddFolderComponent,
+    AddFitRowComponent,
     DeleteModalComponent],
   providers: [
     MatDatepickerModule,

@@ -1,0 +1,43 @@
+<form #form="ngForm" (ngSubmit)="addFitRow(form.value)">
+    <h1>Add New Row to The Fitness Table</h1>
+    <mat-form-field>
+        <input matInput ngModel placeholder="Muscle Group" name="muscle" #muscleRow="ngModel" required>
+        <mat-error *ngIf="muscleRow.hasError('required')">
+            Please enter a Muscle Group
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput ngModel placeholder="Exercize" name="exercise" #exRow="ngModel" required>
+        <mat-error *ngIf="exRow.hasError('required')">
+            Please enter a Exercize
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput type="number" ngModel placeholder="Sets" name="amountOfSets" #setsRow="ngModel" required>
+        <mat-error *ngIf="setsRow.hasError('required')">
+            Please enter an amount of sets
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput type="number" ngModel placeholder="Repetitions" name="repetitions" #repRow="ngModel" required>
+        <mat-error *ngIf="repRow.hasError('required')">
+            Please enter an amount of Repetitions
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput type="number" ngModel placeholder="Pause" name="pause" #pauseRow="ngModel" required>
+        <mat-error *ngIf="pauseRow.hasError('required')">
+            Please enter a Pause duration
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput type="number" ngModel placeholder="Starting Weight" name="startingWeight" #stWeightRow="ngModel" required>
+        <mat-error *ngIf="stWeightRow.hasError('required')">
+            Please enter a starting weight
+        </mat-error>
+    </mat-form-field>
+
+    <button type="submit" [disabled]="!form.valid" 
+        mat-raised-button color="primary">Save</button>
+
+</form>
