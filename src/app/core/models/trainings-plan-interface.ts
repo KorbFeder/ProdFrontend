@@ -1,5 +1,5 @@
 export interface TrainingsPlan {
-    id: number;
+    id?: number;
     phase: number;
     dayNr: number;
     muscle: string;

@@ -1,20 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatBottomSheet } from '@angular/material';
 import { AddFolderComponent } from 'src/app/components/add-folder/add-folder.component';
 import { FolderInterface } from 'src/app/core/models/folder-interface';
 import { FolderService } from 'src/app/core/services/folder.service';
 import { Store, select } from '@ngrx/store';
 import { ConnectionService } from 'src/app/core/services/connection.service';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
+import { map, takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-summaries',
   templateUrl: './summaries.component.html',
   styleUrls: ['./summaries.component.scss']
 })
-export class SummariesComponent implements OnInit {
+export class SummariesComponent implements OnInit, OnDestroy {
   folders$: Observable<FolderInterface>;
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(
     private bottomSheet: MatBottomSheet,
@@ -27,15 +28,19 @@ export class SummariesComponent implements OnInit {
       map(result => result.folders)
     );
     this.folders$.subscribe();
-  }
-
-  ngOnInit() {
-    this.connection.connected$.subscribe((connected) => {
+    this.connection.connected$.pipe(
+      takeUntil(this.destroy$)
+    ).subscribe((connected) => {
       if (connected) {
         this.folderService.get().subscribe();
       }
     });
   }
+
+  ngOnInit() {
+
+  }
+  
 
   /**
    * This gets triggered when the add-Folder button is pressed.
@@ -51,5 +56,9 @@ export class SummariesComponent implements OnInit {
     });
   }
 
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
+  }
 
 }

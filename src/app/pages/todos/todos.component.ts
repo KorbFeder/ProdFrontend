@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { TodoInterface } from 'src/app/core/models/todo-interface';
 import { MatBottomSheet, MatDialog } from '@angular/material';
 import { AddTodoComponent } from 'src/app/components/add-todo/add-todo.component';
 import { TodosService } from 'src/app/core/services/todos.service';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Store, select } from '@ngrx/store';
-import { map, mergeMap } from 'rxjs/operators';
+import { map, mergeMap, takeUntil } from 'rxjs/operators';
 import { ConnectionService } from 'src/app/core/services/connection.service';
 import { DeleteModalComponent } from 'src/app/components/delete-modal/delete-modal.component';
 
@@ -14,9 +14,10 @@ import { DeleteModalComponent } from 'src/app/components/delete-modal/delete-mod
   templateUrl: './todos.component.html',
   styleUrls: ['./todos.component.scss']
 })
-export class TodosComponent implements OnInit {
+export class TodosComponent implements OnInit, OnDestroy {
   public todos$: Observable<TodoInterface[]>;
   public importanceStates: string[] = ['Very urgent', 'In the next view days', 'Someday', 'Done'];
+  private destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(private todoService: TodosService,
               private bottomSheet: MatBottomSheet,
@@ -28,7 +29,9 @@ export class TodosComponent implements OnInit {
       map(result => result.todos)
     );
     this.todos$.subscribe();
-    this.connection.connected$.subscribe((connected) => {
+    this.connection.connected$.pipe(
+      takeUntil(this.destroy$)
+    ).subscribe((connected) => {
       if (connected) {
         this.todoService.get().subscribe();
       }
@@ -124,5 +127,11 @@ export class TodosComponent implements OnInit {
         }
       }
     });
- }
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
+  }
+
 }
