@@ -15,7 +15,7 @@ import { map, takeUntil } from 'rxjs/operators';
 })
 export class SummariesComponent implements OnInit, OnDestroy {
   folders$: Observable<FolderInterface>;
-  destroy$: Subject<boolean> = new Subject<boolean>();
+  private destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(
     private bottomSheet: MatBottomSheet,
