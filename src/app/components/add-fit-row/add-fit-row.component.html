@@ -1,5 +1,5 @@
 <form #form="ngForm" (ngSubmit)="addFitRow(form.value)">
-    <h1>Add New Row to The Fitness Table</h1>
+    <h1>Add New Row</h1>
     <mat-form-field>
         <input matInput ngModel placeholder="Muscle Group" name="muscle" #muscleRow="ngModel" required>
         <mat-error *ngIf="muscleRow.hasError('required')">
@@ -37,7 +37,6 @@
         </mat-error>
     </mat-form-field>
 
-    <button type="submit" [disabled]="!form.valid" 
+    <button class="submit-button" type="submit" [disabled]="!form.valid" 
         mat-raised-button color="primary">Save</button>
-
 </form>

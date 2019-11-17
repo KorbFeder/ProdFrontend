@@ -8,6 +8,6 @@ export interface TrainingsPlan {
     repetitions: number;
     pauseInbetween: number;
     startingWeight: number;
-    repetitionsDone: number[];
-    weightsUsed: number[];
+    repetition: number[];
+    weightUsed: number[];
 }

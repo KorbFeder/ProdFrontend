@@ -14,11 +14,10 @@ export class FitComponent implements OnInit {
   public dayNr: number = null;
   public data: TrainingsPlan[];
   public displayedColumns: string[] = [
-    'muscle', 'exercise', 'amountOfSets', 'repetitions', 
-    'pauseInbetween', 'startingWeight', 'repetitionsDone',
-    'weightsUsed'
+    'muscle', 'exercise', 'amountOfSets', 'repetitions',
+    'pauseInbetween', 'startingWeight', 'repetition',
+    'weightUsed'
   ];
-
 
   constructor(
     private fitService: FitService,
@@ -26,17 +25,37 @@ export class FitComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.fitService.get('1', '1').subscribe((res) => {
-      this.data = res;
-    });
+
+  }
+
+  public getTables() {
+    if (this.phase !== null && this.dayNr !== null) {
+      this.fitService.get(this.phase.toString(), this.dayNr.toString()).subscribe((res) => {
+        this.data = res;
+      });
+    }
   }
 
   public addTrainingsPlanRow() {
     const ref = this.bottomSheet.open(AddFitRowComponent, {data: {phase: this.phase, dayNr: this.dayNr}});
     ref.afterDismissed().subscribe((response) => {
-      if(response) {
-        console.log(response);
+      if (response) {
+        const newRow: TrainingsPlan[] = [{
+          amountOfSets: response.amountOfSets,
+          dayNr: response.dayNr,
+          exercise: response.exercise,
+          muscle: response.muscle,
+          pauseInbetween: response.pause,
+          phase: response.phase,
+          repetitions: response.repetitions,
+          startingWeight: response.startingWeight,
+          repetition: [],
+          weightUsed: []
+        }];
+        this.fitService.save(newRow).subscribe((response) => {
+          this.data = response;
+        });
       }
-    })
+    });
   }
 }

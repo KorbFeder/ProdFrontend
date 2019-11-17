@@ -2,13 +2,13 @@
 <h3>Choose a Day and a Phase to display the Tables content:</h3>
 <mat-form-field>
   <mat-label>Phase</mat-label>
-  <mat-select [(value)]="phase">
+  <mat-select [(value)]="phase" (selectionChange)="getTables()">
     <mat-option value="{{num}}" *ngFor="let num of [1, 2, 3]"> {{num}}</mat-option>
   </mat-select>
 </mat-form-field>
 <mat-form-field>
   <mat-label>Day</mat-label>
-  <mat-select [(value)]=dayNr>
+  <mat-select [(value)]="dayNr" (selectionChange)="getTables()">
     <mat-option *ngFor="let num of [1, 2, 3]" value="{{num}}"> {{num}}</mat-option>
   </mat-select>
 </mat-form-field>
@@ -20,7 +20,7 @@
     <mat-cell *matCellDef="let element">{{element.muscle}}</mat-cell>
   </ng-container>
   <ng-container matColumnDef="exercise">
-    <mat-header-cell *matHeaderCellDef>Exercize</mat-header-cell>
+    <mat-header-cell *matHeaderCellDef>Exercise</mat-header-cell>
     <mat-cell *matCellDef="let element">{{element.exercise}}</mat-cell>
   </ng-container>
   <ng-container matColumnDef="amountOfSets">
@@ -39,13 +39,13 @@
     <mat-header-cell *matHeaderCellDef>Starting Weight</mat-header-cell>
     <mat-cell *matCellDef="let element">{{element.startingWeight}}</mat-cell>
   </ng-container>
-  <ng-container matColumnDef="repetitionsDone">
+  <ng-container matColumnDef="repetition">
     <mat-header-cell *matHeaderCellDef>Repetitions done</mat-header-cell>
-    <mat-cell *matCellDef="let element">{{element.repetitionsDone}}</mat-cell>
+    <mat-cell *matCellDef="let element">{{element.repetition}}</mat-cell>
   </ng-container>
-  <ng-container matColumnDef="weightsUsed">
+  <ng-container matColumnDef="weightUsed">
     <mat-header-cell *matHeaderCellDef>Weights used</mat-header-cell>
-    <mat-cell *matCellDef="let element">{{element.weightsUsed}}</mat-cell>
+    <mat-cell *matCellDef="let element">{{element.weightUsed}}</mat-cell>
   </ng-container>
 
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
